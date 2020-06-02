@@ -8,11 +8,11 @@ let express = require("express"),
 let indexRoutes = require("./routes/index");
 
 /* COMMENT OUT BEFORE DEPLOYMENT */
-let liveReload = require("livereload"),
-	liveReloadServer = liveReload.createServer(),
-	connectLiveReload = require("connect-livereload");
-liveReloadServer.watch(path.join(__dirname + "/public"));
-app.use(connectLiveReload());
+// let liveReload = require("livereload"),
+// 	liveReloadServer = liveReload.createServer(),
+// 	connectLiveReload = require("connect-livereload");
+// liveReloadServer.watch(path.join(__dirname + "/public"));
+// app.use(connectLiveReload());
 
 app.set("port", process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({ extended: true }));
