@@ -8,13 +8,6 @@ let express = require("express"),
 let indexRoutes = require("./routes/index"),
 	logbookRoutes = require("./routes/logbook");
 
-/* ! COMMENT OUT BEFORE DEPLOYMENT ! */
-let liveReload = require("livereload"),
-	liveReloadServer = liveReload.createServer(),
-	connectLiveReload = require("connect-livereload");
-liveReloadServer.watch(path.join(__dirname + "/public"));
-app.use(connectLiveReload());
-
 app.set("port", process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -33,6 +26,15 @@ mongoose.connect(db, {
 	useUnifiedTopology: true,
 	useFindAndModify: false,
 });
+
+/* ! COMMENT OUT BEFORE DEPLOYMENT ! */
+if (app.get("port") === 3000) {
+	let liveReload = require("livereload"),
+		liveReloadServer = liveReload.createServer(),
+		connectLiveReload = require("connect-livereload");
+	liveReloadServer.watch(path.join(__dirname + "/public"));
+	app.use(connectLiveReload());
+}
 
 app.use(indexRoutes);
 app.use("/home", logbookRoutes);
