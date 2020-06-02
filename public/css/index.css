@@ -3,3 +3,10 @@
 
 /* BASE */
 @import url("./base.css");
+
+/* VARIABLES */
+@import url("./variables.css");
+
+/* COMPONENTS */
+@import url("./form.css");
+@import url("./button.css");

@@ -1,0 +1,21 @@
+button {
+	border-radius: 2rem;
+	border: none;
+	padding: 1rem 1.5rem;
+	cursor: pointer;
+	background-color: var(--color-maroon);
+	color: var(--color-yellow);
+	transition: all 0.3s ease-out;
+	outline: none;
+	font-size: 1rem;
+}
+
+button:hover {
+	transform: translateY(-0.1rem);
+	box-shadow: 0rem 0.3rem 0.5rem var(--color-box-shadow);
+}
+
+button:active {
+	transform: translateY(0);
+	box-shadow: none;
+}
