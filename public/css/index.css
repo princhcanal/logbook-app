@@ -10,3 +10,5 @@
 /* COMPONENTS */
 @import url("./form.css");
 @import url("./button.css");
+@import url("./table.css"); /* PAGES */
+@import url("./logbook.css");

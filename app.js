@@ -5,14 +5,15 @@ let express = require("express"),
 	mongoose = require("mongoose"),
 	path = require("path");
 
-let indexRoutes = require("./routes/index");
+let indexRoutes = require("./routes/index"),
+	logbookRoutes = require("./routes/logbook");
 
-/* COMMENT OUT BEFORE DEPLOYMENT */
-// let liveReload = require("livereload"),
-// 	liveReloadServer = liveReload.createServer(),
-// 	connectLiveReload = require("connect-livereload");
-// liveReloadServer.watch(path.join(__dirname + "/public"));
-// app.use(connectLiveReload());
+/* ! COMMENT OUT BEFORE DEPLOYMENT ! */
+let liveReload = require("livereload"),
+	liveReloadServer = liveReload.createServer(),
+	connectLiveReload = require("connect-livereload");
+liveReloadServer.watch(path.join(__dirname + "/public"));
+app.use(connectLiveReload());
 
 app.set("port", process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,6 +35,7 @@ mongoose.connect(db, {
 });
 
 app.use(indexRoutes);
+app.use("/home", logbookRoutes);
 
 let port = app.get("port");
 let server = app.listen(port, () => {

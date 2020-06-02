@@ -1,16 +1,16 @@
 <%- include partials/header %>
 <div class="login-page">
-	<div class="login">
+	<div class="login-container">
 		<h1>Welcome to Logbook</h1>
 		<div class="form-group">
-			<div class="options">
-				<div class="options-group option-selected">
+			<div class="login-options">
+				<div class="login-options-group option-selected">
 					<div class="text">
 						<i class="fas fa-user"></i>
 						<a>Login</a>
 					</div>
 				</div>
-				<div class="options-group">
+				<div class="login-options-group">
 					<div class="text">
 						<i class="fas fa-book-open"></i>
 						<a>Signup</a>
@@ -44,16 +44,16 @@
 				<form action="" id="signupForm" class="form hide">
 					<h2>Signup here!</h2>
 					<div class="input-group">
+						<label for="email">Email</label>
+						<input type="text" id="email" placeholder="Email" />
+					</div>
+					<div class="input-group">
 						<label for="signupUsername">Username</label>
 						<input
 							type="text"
 							id="signupUsername"
 							placeholder="Username"
 						/>
-					</div>
-					<div class="input-group">
-						<label for="email">Email</label>
-						<input type="text" id="email" placeholder="Email" />
 					</div>
 					<div class="input-group">
 						<label for="signupPassword">Password</label>

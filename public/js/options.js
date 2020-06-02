@@ -1,5 +1,5 @@
-let options = document.querySelectorAll(".options-group");
-let texts = document.querySelectorAll(".options-group .text");
+let options = document.querySelectorAll(".login-options-group");
+let texts = document.querySelectorAll(".login-options-group .text");
 let forms = document.querySelectorAll(".form");
 
 texts.forEach((text, i) => {

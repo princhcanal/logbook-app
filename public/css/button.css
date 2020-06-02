@@ -19,3 +19,10 @@ button:active {
 	transform: translateY(0);
 	box-shadow: none;
 }
+
+@media (hover: none) {
+	button:hover {
+		transform: translateY(0);
+		box-shadow: none;
+	}
+}

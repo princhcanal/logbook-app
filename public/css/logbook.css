@@ -1,0 +1,70 @@
+.logbook-container {
+	width: 80%;
+	margin: 3rem auto;
+}
+
+.table-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 95%;
+	margin: 0 auto;
+}
+
+.office-title {
+	font-size: 3rem;
+	color: var(--color-maroon);
+	width: 75%;
+}
+
+@media (max-width: 530px) {
+	.table-title {
+		flex-direction: column-reverse;
+	}
+	.office-title,
+	.title-buttons {
+		width: 100%;
+		text-align: center;
+	}
+	.title-buttons {
+		align-self: flex-end;
+	}
+}
+
+.title-buttons {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 15rem;
+}
+
+.title-buttons i {
+	color: var(--color-maroon);
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+.title-buttons button,
+.table-buttons button {
+	border-radius: 0;
+	border: 3px solid var(--color-gold);
+}
+
+.table-buttons {
+	display: flex;
+	justify-content: space-around;
+}
+
+.table-buttons a {
+	color: var(--color-yellow);
+	background-color: var(--color-maroon);
+	padding: 0.5rem 1rem;
+	border: 3px solid var(--color-gold);
+}
+
+@media (max-width: 440px) {
+	.table-buttons button {
+		font-size: 0.8rem;
+		padding: 0.5rem 1rem;
+	}
+}

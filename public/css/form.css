@@ -2,12 +2,12 @@
 	margin: 3rem 0;
 }
 
-.login {
+.login-container {
 	width: 70%;
 	margin: auto;
 }
 
-.login h1 {
+.login-container h1 {
 	text-align: center;
 	text-transform: uppercase;
 	color: var(--color-maroon);
@@ -16,26 +16,20 @@
 }
 
 @media (max-width: 824px) {
-	.login h1 {
+	.login-container h1 {
 		font-size: 2.5rem;
 	}
 }
 
 @media (max-width: 687px) {
-	.login h1 {
+	.login-container h1 {
 		font-size: 2rem;
 	}
 }
 
 @media (max-width: 551px) {
-	.login h1 {
+	.login-container h1 {
 		font-size: 1.5rem;
-	}
-}
-
-@media (max-width: 412px) {
-	.login h1 {
-		font-size: 1rem;
 	}
 }
 
@@ -47,19 +41,19 @@
 	border-radius: 1rem;
 }
 
-.options {
+.login-options {
 	background-color: var(--color-maroon);
 	width: 30%;
 	border-top-left-radius: 1rem;
 	border-bottom-left-radius: 1rem;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	padding: 1rem;
 	color: var(--color-gold);
 }
 
-.options-group {
+.login-options-group {
 	height: 33%;
 	text-align: center;
 	display: flex;
@@ -68,7 +62,7 @@
 	border-radius: 1rem;
 }
 
-.options-group .text {
+.login-options-group .text {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -77,29 +71,29 @@
 	cursor: pointer;
 }
 
-.options-group i {
+.login-options-group i {
 	font-size: 1.5rem;
 }
 
 @media (max-width: 1100px) {
-	.options-group i {
+	.login-options-group i {
 		font-size: 1rem;
 	}
 }
 
-.options-group a {
+.login-options-group a {
 	display: inline-block;
+	font-size: 1.2rem;
 }
 
-.options-group.option-selected {
+.login-options-group.option-selected {
 	background-color: var(--color-gold);
 	color: var(--color-maroon);
 }
 
 .forms {
-	width: 70%;
 	background-color: var(--color-gold);
-	width: 100%;
+	width: 70%;
 	margin: 0 auto;
 	padding: 1rem 3rem 2rem;
 	border-top-right-radius: 1rem;
@@ -108,14 +102,6 @@
 
 .form h2 {
 	text-transform: uppercase;
-}
-
-#loginForm,
-#signupForm {
-}
-
-#loginForm h2,
-#signupForm h2 {
 	text-align: center;
 	color: var(--color-maroon);
 }
@@ -126,7 +112,7 @@
 }
 
 .input-group:not(:last-child) {
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 }
 
 .input-group label {
@@ -137,12 +123,13 @@
 
 .input-group input,
 .input-group select {
-	padding: 0.5rem 0.7rem;
+	padding: 1rem;
 	outline: none;
 	border: none;
 	border-radius: 0.5rem;
 	box-shadow: 0.3rem 0.3rem 0.5rem var(--color-box-shadow);
 	font-family: inherit;
+	font-size: 1rem;
 }
 
 .input-group select {
@@ -169,6 +156,7 @@
 .input-group.buttons a {
 	color: var(--color-maroon);
 	cursor: pointer;
+	border-bottom: 1px solid transparent;
 }
 
 .input-group.buttons a:hover {
@@ -179,7 +167,7 @@
 	.form-group {
 		flex-direction: column;
 	}
-	.options {
+	.login-options {
 		width: 100%;
 		flex-direction: row;
 		border-top-right-radius: 1rem;
@@ -192,7 +180,7 @@
 		border-top-right-radius: 0rem;
 		border-top-left-radius: 0rem;
 	}
-	.options-group {
+	.login-options-group {
 		height: 100%;
 		width: 50%;
 		padding: 1rem 4rem;
@@ -200,39 +188,51 @@
 }
 
 @media (max-width: 800px) {
-	.options-group i {
+	.login-options-group {
+		padding: 1rem 3.5rem;
+	}
+	.login-options-group i {
 		font-size: 0.8rem;
 	}
 }
 
 @media (max-width: 750px) {
-	.options-group {
+	.login-options-group {
 		padding: 1rem 3rem;
 	}
 }
 
 @media (max-width: 750px) {
-	.options-group {
+	.login-options-group {
 		padding: 1rem 2rem;
 	}
 }
+
+@media (max-width: 700px) {
+	.login-container {
+		width: 80%;
+	}
+}
+
 @media (max-width: 600px) {
-	.options-group {
+	.login-container {
+		width: 90%;
+	}
+	.login-options-group {
 		padding: 1rem 1rem;
+	}
+	.input-group button {
+		width: 100%;
+		margin-bottom: 1rem;
+	}
+	.input-group.buttons {
+		flex-direction: column-reverse;
 	}
 }
 
 @media (max-width: 550px) {
 	.forms {
 		padding: 1rem 2rem 2rem;
-	}
-	.input-group button {
-		width: 100%;
-		margin-bottom: 1rem;
-	}
-
-	.input-group.buttons {
-		flex-direction: column-reverse;
 	}
 
 	.buttons a {
@@ -241,7 +241,7 @@
 }
 
 @media (max-width: 475px) {
-	.options-group {
+	.login-options-group {
 		padding: 1rem 0rem;
 	}
 }

@@ -1,0 +1,65 @@
+.table-container {
+	width: 100%;
+	overflow-x: scroll;
+}
+
+.table-container::-webkit-scrollbar {
+	display: block;
+}
+
+.table {
+	border: 3px solid var(--color-maroon);
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+}
+
+.row:not(:last-child) {
+	border-bottom: 3px solid var(--color-maroon);
+}
+
+.table-header {
+	color: var(--color-gold);
+	text-align: center;
+	font-weight: 700;
+}
+
+.column {
+	width: 100%;
+	padding: 1rem;
+}
+
+.column:not(:last-child) {
+	border-right: 3px solid var(--color-maroon);
+}
+
+.column.doc-id,
+.column.doc-type,
+.column.due-date,
+.column.destination,
+.column.status,
+.column.action {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.destinations,
+.statuses {
+	text-align: center;
+}
+
+.actions {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 100%;
+}
+
+.actions button {
+	border-radius: 0;
+}

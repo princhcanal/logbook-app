@@ -11,6 +11,14 @@ body {
 	background-color: var(--color-white);
 }
 
+a {
+	text-decoration: none;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
 .hide {
 	display: none;
 }
