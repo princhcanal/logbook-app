@@ -253,10 +253,9 @@ header {
 	position: absolute;
 	top: 0;
 	left: 0;
-	display: none;
 	opacity: 0;
 	transition: opacity .3s ease-out;
-	z-index: 50;
+	z-index: -1;
 }
 
 .show-backdrop {
@@ -264,6 +263,7 @@ header {
 	display: -ms-flexbox;
 	display: flex;
 	opacity: 1;
+	z-index: 50;
 }
 
 .hamburger-menu,
