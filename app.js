@@ -27,7 +27,6 @@ mongoose.connect(db, {
 	useFindAndModify: false,
 });
 
-/* ! COMMENT OUT BEFORE DEPLOYMENT ! */
 if (app.get("port") === 3000) {
 	let liveReload = require("livereload"),
 		liveReloadServer = liveReload.createServer(),

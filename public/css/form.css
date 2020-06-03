@@ -140,6 +140,7 @@
 .input-group button {
 	margin-top: 1rem;
 	width: 40%;
+	border-radius: 2rem;
 }
 
 #signupForm button {
@@ -167,6 +168,7 @@
 	.form-group {
 		flex-direction: column;
 	}
+
 	.login-options {
 		width: 100%;
 		flex-direction: row;
@@ -174,12 +176,14 @@
 		border-bottom-right-radius: 0rem;
 		border-bottom-left-radius: 0rem;
 	}
+
 	.forms {
 		width: 100%;
 		border-bottom-left-radius: 1rem;
 		border-top-right-radius: 0rem;
 		border-top-left-radius: 0rem;
 	}
+
 	.login-options-group {
 		height: 100%;
 		width: 50%;
@@ -191,6 +195,7 @@
 	.login-options-group {
 		padding: 1rem 3.5rem;
 	}
+
 	.login-options-group i {
 		font-size: 0.8rem;
 	}
@@ -218,13 +223,16 @@
 	.login-container {
 		width: 90%;
 	}
+
 	.login-options-group {
 		padding: 1rem 1rem;
 	}
+
 	.input-group button {
 		width: 100%;
 		margin-bottom: 1rem;
 	}
+
 	.input-group.buttons {
 		flex-direction: column-reverse;
 	}
