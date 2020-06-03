@@ -129,6 +129,7 @@ header {
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
+	position: fixed;
 	height: 100vh;
 	width: 60%;
 	background-color: var(--color-maroon);
@@ -139,6 +140,7 @@ header {
 	-webkit-transition: all 0.3s ease-out;
 	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
+	z-index: 100;
 }
 
 .show-menu {
@@ -220,6 +222,11 @@ header {
 	border-bottom: 2px solid var(--color-brown);
 }
 
+.menu-links .link-selected {
+	background-color: var(--color-yellow);
+	color: var(--color-maroon);
+}
+
 @media (max-width: 780px) {
 	.nav-links {
 		display: none;
@@ -254,4 +261,9 @@ header {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
+}
+
+.hamburger-menu,
+.backdrop {
+	position: fixed;
 }

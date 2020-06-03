@@ -35,9 +35,12 @@
 
 .table-header {
 	color: var(--color-gold);
+	background-color: var(--color-maroon);
 	text-align: center;
 	font-weight: 700;
 }
+
+.table-header .column {}
 
 .column {
 	width: 250px;

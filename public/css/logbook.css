@@ -37,10 +37,9 @@
 }
 
 @media (max-width: 530px) {
-	/* .office-title {
-		width: 100%;
-		text-align: center;
-	} */
+	.table-title button {
+		padding: .5rem;
+	}
 }
 
 .table-buttons button {

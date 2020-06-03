@@ -22,12 +22,16 @@ body {
 
 .wrapper {
 	overflow-x: hidden;
-	/* position: relative; */
+	position: relative;
+	height: auto;
+	overflow-y: scroll;
+	height: 100vh;
 }
 
 a {
 	text-decoration: none;
 }
+
 
 ::-webkit-scrollbar {
 	display: none;
