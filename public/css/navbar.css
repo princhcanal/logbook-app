@@ -175,6 +175,10 @@ header {
 	.hamburger-icon {
 		display: block;
 	}
+
+	#mainNav {
+		padding: 0 3rem;
+	}
 }
 
 .backdrop {

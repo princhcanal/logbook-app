@@ -9,6 +9,7 @@ body {
 	padding: 0;
 	font-family: "Nunito";
 	background-color: var(--color-white);
+	overflow-x: hidden;
 }
 
 a {

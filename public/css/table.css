@@ -29,7 +29,7 @@
 }
 
 .column {
-	width: 100%;
+	width: 250px;
 	padding: 1rem;
 }
 
@@ -63,3 +63,45 @@
 .actions button {
 	border-radius: 0;
 }
+
+.table-div {
+	overflow-x: scroll;
+	width: 1000px;
+}
+
+table {
+	width: 100%;
+	/* border: 3px solid var(--color-maroon); */
+	border-collapse: collapse;
+	overflow-x: scroll;
+}
+
+thead {
+	color: var(--color-gold);
+	text-align: center;
+	font-weight: 700;
+}
+
+table,
+th,
+td {
+	border: 3px solid var(--color-maroon);
+}
+
+tr {
+	width: 50%;
+}
+
+/* td:not(:last-child) {
+	border-right: 3px solid var(--color-maroon);
+}
+
+tr:not(:last-child),
+thead {
+	border-top: 3px solid var(--color-maroon);
+	border-bottom: 3px solid var(--color-maroon);
+}
+
+tbody {
+	border-bottom: 3px solid var(--color-maroon);
+} */
