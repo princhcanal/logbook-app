@@ -31,14 +31,19 @@
 }
 
 .office-title {
-	font-size: 3rem;
+	font-size: 5rem;
 	color: var(--color-maroon);
 	width: 75%;
+	margin: 0;
 }
 
-@media (max-width: 530px) {
+@media (max-width: 550px) {
 	.table-title button {
 		padding: .5rem;
+	}
+
+	.office-title {
+		font-size: 3rem;
 	}
 }
 
@@ -70,4 +75,30 @@
 		font-size: 0.8rem;
 		padding: 0.5rem 1rem;
 	} */
+}
+
+.searchbar {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 1rem;
+}
+
+.searchbar .input-group {
+	flex-direction: row;
+	align-items: center;
+}
+
+.searchbar label {
+	margin: 0;
+}
+
+.searchbar input {
+	padding: .5rem;
+	font-family: inherit;
+	margin-right: 1rem;
+}
+
+.searchbar i {
+	color: var(--color-maroon);
+	font-size: 1.2rem;
 }

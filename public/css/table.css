@@ -33,6 +33,10 @@
 	border-bottom: 3px solid var(--color-maroon);
 }
 
+.row:not(:first-child):nth-child(odd) {
+	background-color: var(--color-yellow);
+}
+
 .table-header {
 	color: var(--color-gold);
 	background-color: var(--color-maroon);
@@ -41,6 +45,14 @@
 }
 
 .table-header .column {}
+
+.title-table {
+	text-align: center;
+	color: var(--color-maroon);
+	font-weight: 800;
+	font-size: 1.5rem;
+	margin: 0;
+}
 
 .column {
 	width: 250px;

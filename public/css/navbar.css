@@ -255,12 +255,15 @@ header {
 	top: 0;
 	left: 0;
 	display: none;
+	opacity: 0;
+	transition: opacity .3s ease-out;
 }
 
 .show-backdrop {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
+	opacity: 1;
 }
 
 .hamburger-menu,
