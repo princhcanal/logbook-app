@@ -9,7 +9,9 @@ let indexRoutes = require("./routes/index"),
 	logbookRoutes = require("./routes/logbook");
 
 app.set("port", process.env.PORT || 3000);
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname + "/public")));
 app.use(methodOverride("_method"));
@@ -36,7 +38,7 @@ if (app.get("port") === 3000) {
 }
 
 app.use(indexRoutes);
-app.use("/home", logbookRoutes);
+app.use("/logbook", logbookRoutes);
 
 let port = app.get("port");
 let server = app.listen(port, () => {

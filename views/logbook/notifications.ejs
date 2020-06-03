@@ -1,0 +1,47 @@
+<%- include ../partials/header %>
+<header>
+    <nav id="mainNav">
+        <div class="logo">
+            <h1><a href="/logbook">Logbook</a></h1>
+        </div>
+        <div class="nav-links">
+            <div class="links">
+                <a href="/logbook" class="">Home</a>
+                <a href="/logbook/incoming">Incoming</a>
+                <a href="/logbook/approved" class="">Approved</a>
+            </div>
+            <div class="profile-buttons">
+                <a href="/logbook/notifications" class="link-selected"><i class="fas fa-bell notification-icon"></i></a>
+                <a href="/logbook/profile" class="">Profile</a>
+            </div>
+        </div>
+        <div class="hamburger-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+<div class="hamburger-menu">
+    <div class="menu-header">
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="menu-profile">
+            <a href="/logbook/notifications" class="link-selected"><i class="fas fa-bell notification-icon"></i></a>
+            <a href="/logbook/profile">Profile</a>
+        </div>
+    </div>
+    <div class="menu-links">
+        <a href="/logbook" class="">Home</a>
+        <a href="/logbook/incoming">Incoming</a>
+        <a href="/logbook/approved">Approved</a>
+    </div>
+</div>
+
+<div class="backdrop"></div>
+
+<div class="login-container">
+    <div class="notifications">
+        <div class="notification">Document #061620-09 is almost due. Due date is June 24, 2020</div>
+    </div>
+</div>
+<%- include ../partials/footer %>

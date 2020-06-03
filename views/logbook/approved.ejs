@@ -1,0 +1,85 @@
+<%- include ../partials/header %>
+<header>
+    <nav id="mainNav">
+        <div class="logo">
+            <h1><a href="/logbook">Logbook</a></h1>
+        </div>
+        <div class="nav-links">
+            <div class="links">
+                <a href="/logbook" class="">Home</a>
+                <a href="/logbook/incoming">Incoming</a>
+                <a href="/logbook/approved" class="link-selected">Approved</a>
+            </div>
+            <div class="profile-buttons">
+                <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+                <a href="/logbook/profile">Profile</a>
+            </div>
+        </div>
+        <div class="hamburger-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+<div class="hamburger-menu">
+    <div class="menu-header">
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="menu-profile">
+            <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+            <a href="/logbook/profile">Profile</a>
+        </div>
+    </div>
+    <div class="menu-links">
+        <a href="/logbook" class="link-selected">Home</a>
+        <a href="/logbook/incoming">Incoming</a>
+        <a href="/logbook/approved">Approved</a>
+    </div>
+</div>
+
+<div class="backdrop"></div>
+
+<div class="logbook-container">
+
+    <div class="table-title title-only">
+        <h1 class="office-title">CMBA</h1>
+    </div>
+
+    <div class="table-container">
+        <div class="table">
+            <div class="row table-header">
+                <div class="column">DOC ID</div>
+                <div class="column">RE:</div>
+                <div class="column">DESTINATION</div>
+                <div class="column">STATUS</div>
+                <div class="column">APPROVED</div>
+            </div>
+            <div class="row">
+                <div class="column doc-id">06032020-1</div>
+                <div class="column re">
+                    CMBA
+                </div>
+                <div class="column staff">
+                    <div class="destinations">
+                        <p>SSD</p>
+                        <p>PE DEPT</p>
+                        <p>MSDO</p>
+                        <p>PCO</p>
+                    </div>
+                </div>
+                <div class="column status">
+                    <div class="statuses">
+                        <p>by Dax: 6-21-20</p>
+                        <p>by Jhon: 6-22-20</p>
+                        <p>by Raul: 6-25-20</p>
+                        <p>by Rob: 6-28-20</p>
+                    </div>
+                </div>
+                <div class="column approved">
+                    July 02, 2020
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ../partials/footer %>

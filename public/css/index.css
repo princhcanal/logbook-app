@@ -11,7 +11,10 @@
 @import url("./form.css");
 @import url("./button.css");
 @import url('./navbar.css');
-
 @import url("./table.css");
+@import url("./notifications.css");
+@import url("./profile.css");
+
+
 /* PAGES */
 @import url("./logbook.css");

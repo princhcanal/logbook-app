@@ -1,0 +1,11 @@
+.notifications {
+    border: 3px solid var(--color-maroon);
+}
+
+.notification {
+    padding: 1rem;
+}
+
+.notification:not(:last-of-type) {
+    border-bottom: 3px solid var(--color-maroon);
+}

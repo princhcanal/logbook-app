@@ -1,0 +1,78 @@
+<%- include ../partials/header %>
+<header>
+    <nav id="mainNav">
+        <div class="logo">
+            <h1><a href="/logbook">Logbook</a></h1>
+        </div>
+        <div class="nav-links">
+            <div class="links">
+                <a href="/logbook" class="">Home</a>
+                <a href="/logbook/incoming" class="link-selected">Incoming</a>
+                <a href="/logbook/approved">Approved</a>
+            </div>
+            <div class="profile-buttons">
+                <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+                <a href="/logbook/profile">Profile</a>
+            </div>
+        </div>
+        <div class="hamburger-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+<div class="hamburger-menu">
+    <div class="menu-header">
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="menu-profile">
+            <a href="/logbook/notifications"></a><i class="fas fa-bell notification-icon"></i>
+            <a href="/logbook/profile">Profile</a>
+        </div>
+    </div>
+    <div class="menu-links">
+        <a href="/logbook" class="link-selected">Home</a>
+        <a href="/logbook/incoming">Incoming</a>
+        <a href="#/logbook/approved">Approved</a>
+    </div>
+</div>
+
+<div class="backdrop"></div>
+
+<div class="logbook-container">
+
+    <div class="table-title title-only">
+        <h1 class="office-title">SSD</h1>
+    </div>
+
+    <div class="table-container">
+        <div class="table">
+            <div class="row table-header">
+                <div class="column">DOC ID</div>
+                <div class="column">SENDER</div>
+                <div class="column">NAS/STAFF</div>
+                <div class="column">OPTIONS</div>
+                <div class="column"> </div>
+            </div>
+            <div class="row">
+                <div class="column doc-id">06032020-1</div>
+                <div class="column sender">
+                    CMBA
+                </div>
+                <div class="column staff">Keanue Teanue</div>
+                <div class="column action">
+                    <div class="actions">
+                        <button>Process</button>
+                        <button>Receive</button>
+                    </div>
+                </div>
+                <div class="column action">
+                    <div class="actions">
+                        <button>Return</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ../partials/footer %>

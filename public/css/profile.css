@@ -1,0 +1,89 @@
+.profile-header {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--color-maroon);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-container {
+    width: 80%;
+    margin: auto;
+}
+
+.profile-card {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    background-color: var(--color-maroon);
+    color: var(--color-yellow);
+    padding: 2rem;
+}
+
+.info .image {
+    text-align: center;
+    margin: auto;
+}
+
+.info .image img {
+    width: 4rem;
+    border-radius: 50%;
+}
+
+.logs {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background-color: var(--color-yellow);
+    color: var(--color-maroon);
+    padding: 2rem;
+}
+
+.log-header {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-maroon);
+    text-align: center;
+}
+
+.log {
+    /* padding: 1rem; */
+}
+
+.log li {
+    padding: .5rem 0;
+}
+
+.user-profile-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.user-profile-buttons button a {
+    color: var(--color-yellow);
+}
+
+@media (max-width: 911px) {
+
+    .profile-container {
+        width: 90%;
+    }
+
+    .info {
+        text-align: center;
+    }
+
+    .info,
+    .logs {
+        width: 100%;
+    }
+}

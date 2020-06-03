@@ -1,9 +1,49 @@
-<%- include ../partials/header %> <%- include ../partials/navbar %>
+<%- include ../partials/header %>
+<header>
+	<nav id="mainNav">
+		<div class="logo">
+			<h1><a href="/logbook">Logbook</a></h1>
+		</div>
+		<div class="nav-links">
+			<div class="links">
+				<a href="/logbook" class="link-selected">Home</a>
+				<a href="/logbook/incoming">Incoming</a>
+				<a href="/logbook/approved">Approved</a>
+			</div>
+			<div class="profile-buttons">
+				<a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+				<a href="/logbook/profile">Profile</a>
+			</div>
+		</div>
+		<div class="hamburger-icon">
+			<i class="fas fa-bars"></i>
+		</div>
+	</nav>
+</header>
+<div class="hamburger-menu">
+	<div class="menu-header">
+		<div class="menu-icon">
+			<i class="fas fa-bars"></i>
+		</div>
+		<div class="menu-profile">
+			<a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+			<a href="#">Profile</a>
+		</div>
+	</div>
+	<div class="menu-links">
+		<a href="/logbook" class="link-selected">Home</a>
+		<a href="/logbook/incoming">Incoming</a>
+		<a href="/logbook/approved">Approved</a>
+	</div>
+</div>
+
+<div class="backdrop"></div>
+
 <div class="logbook-container">
 	<div class="table-title">
 		<h1 class="office-title">CMBA</h1>
 		<div class="table-buttons">
-			<button href="/home">Add</button>
+			<button> <a href="/logbook/new">Add</a></button>
 		</div>
 	</div>
 

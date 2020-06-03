@@ -1,0 +1,83 @@
+<%- include ../partials/header %>
+<header>
+    <nav id="mainNav">
+        <div class="logo">
+            <h1><a href="/logbook">Logbook</a></h1>
+        </div>
+        <div class="nav-links">
+            <div class="links">
+                <a href="/logbook" class="">Home</a>
+                <a href="/logbook/incoming">Incoming</a>
+                <a href="/logbook/approved">Approved</a>
+            </div>
+            <div class="profile-buttons">
+                <i class="fas fa-bell notification-icon"></i>
+                <a href="#">Profile</a>
+            </div>
+        </div>
+        <div class="hamburger-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+<div class="hamburger-menu">
+    <div class="menu-header">
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="menu-profile">
+            <i class="fas fa-bell notification-icon"></i>
+            <a href="#">Profile</a>
+        </div>
+    </div>
+    <div class="menu-links">
+        <a href="/home" class="link-selected">Home</a>
+        <a href="#">Incoming</a>
+        <a href="#">Approved</a>
+    </div>
+</div>
+
+<div class="backdrop"></div>
+
+<div class="logbook-container">
+
+    <div class="table-title title-only">
+        <h1 class="office-title">CMBA</h1>
+    </div>
+
+    <div class="table-container">
+        <div class="table">
+            <div class="row table-header">
+                <div class="column">DOC ID</div>
+                <div class="column">RE:</div>
+                <div class="column">SENDER</div>
+                <div class="column">DESTINATION</div>
+                <div class="column">REMARKS</div>
+                <div class="column">PRIORITY</div>
+            </div>
+            <div class="row">
+                <div class="column doc-id">06032020-1</div>
+                <div class="column re">
+                    Letter of Dr...Permission to hold a seminar on July 4,
+                    2020...To borrow sound system
+                </div>
+                <div class="column sender">CMBA</div>
+                <div class="column destination">
+                    <div class="destinations">
+                        <p>SSD</p>
+                        <p>PE DEPT</p>
+                        <p>MSDO</p>
+                        <p>PCO</p>
+                    </div>
+                </div>
+                <div class="column remarks">
+                    -
+                </div>
+                <div class="column priority">
+                    -
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ../partials/footer %>

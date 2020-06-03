@@ -1,0 +1,77 @@
+<%- include ../partials/header %>
+<header>
+    <nav id="mainNav">
+        <div class="logo">
+            <h1><a href="/logbook">Logbook</a></h1>
+        </div>
+        <div class="nav-links">
+            <div class="links">
+                <a href="/logbook" class="">Home</a>
+                <a href="/logbook/incoming">Incoming</a>
+                <a href="/logbook/approved" class="">Approved</a>
+            </div>
+            <div class="profile-buttons">
+                <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+                <a href="/logbook/profile" class="link-selected">Profile</a>
+            </div>
+        </div>
+        <div class="hamburger-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+<div class="hamburger-menu">
+    <div class="menu-header">
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="menu-profile">
+            <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+            <a href="/logbook/profile">Profile</a>
+        </div>
+    </div>
+    <div class="menu-links">
+        <a href="/logbook">Home</a>
+        <a href="/logbook/incoming">Incoming</a>
+        <a href="/logbook/approved">Approved</a>
+    </div>
+</div>
+
+<div class="backdrop"></div>
+
+<div class="profile">
+    <div class="profile-header">User Profile</div>
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="info">
+                <div class="image">
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        alt="">
+                </div>
+                <div class="desc">
+                    <p>Name: Seth</p>
+                    <p>Department: CMBA</p>
+                    <p>Account Type: NAS</p>
+                    <p>Office Hours: 1 - 3pm</p>
+                    <p>Course: BSCpE</p>
+                </div>
+            </div>
+
+            <div class="logs">
+                <div class="log-header">
+                    Activity Log
+                </div>
+                <ul class="log">
+                    <li>Seth received a letter of request from ETO (document #072420-05</li>
+                    <li>Seth processed an EPr from cads (document #072420-09)</li>
+                    <li>Seth added a document (vacation leave) to rout (document #072420-12)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="user-profile-buttons">
+            <button>Change Password</button>
+            <button><a href="/logbook">Home</a></button>
+        </div>
+    </div>
+</div>
+<%- include ../partials/footer %>
