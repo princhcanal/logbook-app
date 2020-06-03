@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 .login-page {
 	margin: 3rem 0;
 }
@@ -34,9 +41,14 @@
 }
 
 .form-group {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
 	width: 100%;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
 	justify-content: space-between;
+	-webkit-box-shadow: 0.5rem 0.5rem 0.5rem var(--color-box-shadow);
 	box-shadow: 0.5rem 0.5rem 0.5rem var(--color-box-shadow);
 	border-radius: 1rem;
 }
@@ -46,8 +58,14 @@
 	width: 30%;
 	border-top-left-radius: 1rem;
 	border-bottom-left-radius: 1rem;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
 	flex-direction: column;
+	-ms-flex-pack: distribute;
 	justify-content: space-around;
 	padding: 1rem;
 	color: var(--color-gold);
@@ -56,15 +74,27 @@
 .login-options-group {
 	height: 33%;
 	text-align: center;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
 	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
 	border-radius: 1rem;
 }
 
 .login-options-group .text {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
 	justify-content: space-between;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
 	width: 60%;
 	margin: 0 auto;
@@ -107,7 +137,12 @@
 }
 
 .input-group {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
 	flex-direction: column;
 }
 
@@ -127,12 +162,14 @@
 	outline: none;
 	border: none;
 	border-radius: 0.5rem;
+	-webkit-box-shadow: 0.3rem 0.3rem 0.5rem var(--color-box-shadow);
 	box-shadow: 0.3rem 0.3rem 0.5rem var(--color-box-shadow);
 	font-family: inherit;
 	font-size: 1rem;
 }
 
 .input-group select {
+	-moz-text-align-last: center;
 	text-align-last: center;
 	cursor: pointer;
 }
@@ -148,9 +185,18 @@
 }
 
 .input-group.buttons {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
 	flex-direction: row;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
 	justify-content: space-between;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
 }
 
@@ -166,11 +212,17 @@
 
 @media (max-width: 950px) {
 	.form-group {
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
 		flex-direction: column;
 	}
 
 	.login-options {
 		width: 100%;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
 		flex-direction: row;
 		border-top-right-radius: 1rem;
 		border-bottom-right-radius: 0rem;
@@ -234,6 +286,9 @@
 	}
 
 	.input-group.buttons {
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: reverse;
+		-ms-flex-direction: column-reverse;
 		flex-direction: column-reverse;
 	}
 }

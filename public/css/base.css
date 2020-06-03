@@ -1,6 +1,14 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 *,
 *::after,
 *::before {
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -10,6 +18,11 @@ body {
 	font-family: "Nunito";
 	background-color: var(--color-white);
 	overflow-x: hidden;
+}
+
+.wrapper {
+	overflow-x: hidden;
+	position: relative;
 }
 
 a {

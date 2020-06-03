@@ -1,27 +1,45 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 button {
 	border: none;
 	padding: 1rem 1.5rem;
 	cursor: pointer;
 	background-color: var(--color-maroon);
 	color: var(--color-yellow);
+	-webkit-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
 	outline: none;
 	font-size: 1rem;
 }
 
 button:hover {
+	-webkit-transform: translateY(-0.1rem);
+	-ms-transform: translateY(-0.1rem);
 	transform: translateY(-0.1rem);
+	-webkit-box-shadow: 0rem 0.3rem 0.5rem var(--color-box-shadow);
 	box-shadow: 0rem 0.3rem 0.5rem var(--color-box-shadow);
 }
 
 button:active {
+	-webkit-transform: translateY(0);
+	-ms-transform: translateY(0);
 	transform: translateY(0);
+	-webkit-box-shadow: none;
 	box-shadow: none;
 }
 
 @media (hover: none) {
 	button:hover {
+		-webkit-transform: translateY(0);
+		-ms-transform: translateY(0);
 		transform: translateY(0);
+		-webkit-box-shadow: none;
 		box-shadow: none;
 	}
 }
