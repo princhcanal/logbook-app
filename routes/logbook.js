@@ -5,15 +5,27 @@ let Log = require('../models/logbookLog');
 let Department = require('../models/department')
 
 router.get("/", middleware.isLoggedIn, (req, res) => {
-	Department.findOne({
-		abbreviation: req.user.department
-	}).populate('logs').exec((err, department) => {
+	// Department.findOne({
+	// 	abbreviation: req.user.department
+	// }).populate('logs').exec((err, department) => {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		res.render('logbook/index', {
+	// 			logs: department.logs
+	// 		})
+	// 	}
+	// })
+	Log.find({
+		sender: req.user.department,
+		approved: false
+	}, (err, logs) => {
 		if (err) {
 			console.log(err);
 		} else {
 			res.render('logbook/index', {
-				logs: department.logs
-			})
+				logs: logs
+			});
 		}
 	})
 });
@@ -30,7 +42,9 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 	})
 });
 
+// create a log
 router.post('/new', middleware.isLoggedIn, (req, res) => {
+	console.log(req.body);
 	let today = new Date()
 	let day = today.getDate();
 	let month = today.getMonth() + 1;
@@ -41,11 +55,10 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 
 	let dateString = `${month}${day}${year}`
 
-	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	let dueDate = req.body.dueDate;
 	let date = dueDate.split('-');
-	console.log(dueDate)
 	let dueDateString = `${months[Number(dueDate[1])]} ${date[2]}, ${date[0]}`
 
 	let logData = {
@@ -83,23 +96,45 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 	})
 });
 
+// approve a log
 router.put('/', (req, res) => {
+	let today = new Date()
+	let day = today.getDate();
+	let month = today.getMonth() + 1;
+	let year = today.getFullYear();
+
+	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+	let dateString = `${months[month]} ${day}, ${year}`
 	Log.updateOne({
 		docId: req.body.docId
 	}, {
-		status: req.body.status
+		approved: req.body.approved,
+		approvedDate: dateString
 	}, (err, log) => {
 		if (err) {
-			console.log(err)
+			res.send(err)
 		} else {
-			res.redirect('/logbook')
+			res.send(log);
 		}
 	})
 })
 
+router.delete('/', (req, res) => {
+	Log.deleteOne({
+		docId: req.body.docId
+	}, (err) => {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send('deleted');
+		}
+	})
+});
+
 router.get('/incoming', middleware.isLoggedIn, (req, res) => {
 	Log.find({
-		sender: req.user.department
+		destination: req.user.department
 	}, (err, logs) => {
 		res.render('logbook/incoming', {
 			logs: logs
@@ -108,6 +143,7 @@ router.get('/incoming', middleware.isLoggedIn, (req, res) => {
 });
 
 router.get('/approved', middleware.isLoggedIn, (req, res) => {
+	console.log(req.user.department);
 	Log.find({
 		sender: req.user.department,
 		approved: true

@@ -66,7 +66,7 @@
 			</div>
 			<% logs.forEach(log => { %>
 			<div class="row">
-				<div class="column doc-id"><%= log.docId %> </div>
+				<div class="column doc-id"><%= log.docId %></div>
 				<div class="column re">
 					<% if (log.re.length > 0) { %>
 					<%= log.re %>
@@ -110,8 +110,10 @@
 				</div>
 				<div class="column action">
 					<div class="actions">
+						<div class="loader hide"></div>
 						<button class="approve-btn">Approve</button>
 						<button class="delete-btn">Delete</button>
+						<div class="loader hide"></div>
 					</div>
 				</div>
 			</div>
