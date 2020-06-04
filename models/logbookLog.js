@@ -4,19 +4,13 @@ let logbookLogSchema = new mongoose.Schema({
     docId: String,
     re: String,
     docType: String,
-    dueDate: {
-        type: Date,
-        default: Date.now
-    },
+    dueDate: String,
     destination: String,
     status: String,
-    author: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        name: String
-    }
+    author: String,
+    sender: String,
+    approved: Boolean,
+    approvedDate: String
 });
 
 module.exports = mongoose.model('LogbookLog', logbookLogSchema);

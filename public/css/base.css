@@ -15,7 +15,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	font-family: "Nunito";
+	font-family: "Nunito", sans-serif;
 	background-color: var(--color-white);
 	overflow-x: hidden;
 }
@@ -36,6 +36,11 @@ a {
 
 ::-webkit-scrollbar {
 	display: none;
+}
+
+::selection {
+	background-color: var(--color-gold);
+	color: var(--color-maroon);
 }
 
 .hide {

@@ -10,7 +10,8 @@ let express = require("express"),
 	User = require('./models/user');
 
 let indexRoutes = require("./routes/index"),
-	logbookRoutes = require("./routes/logbook");
+	logbookRoutes = require("./routes/logbook"),
+	departmentRoutes = require('./routes/department');
 
 app.set("port", process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({
@@ -65,6 +66,7 @@ if (app.get("port") === 3000) {
 
 app.use(indexRoutes);
 app.use("/logbook", logbookRoutes);
+app.use("/department", departmentRoutes);
 
 let port = app.get("port");
 let server = app.listen(port, () => {

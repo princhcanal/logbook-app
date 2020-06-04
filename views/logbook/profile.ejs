@@ -58,8 +58,25 @@
                     <p>Name: <%= currentUser.firstName + ' ' + currentUser.lastName %> </p>
                     <p>Department: <%= currentUser.department %> </p>
                     <p>Account Type: <%= currentUser.accountType %> </p>
-                    <p>Office Hours: 1 - 3pm</p>
-                    <p>Course: BSCpE</p>
+                    <p>
+                        Office Hours:
+                        <% if (currentUser.officeHours && currentUser.officeHours.length > 0) { %>
+                        <%= currentUser.officeHours %>
+                        <% } else { %>
+                        N/A
+                        <% }%>
+                    </p>
+                    <% if (currentUser.accountType === 'NAS') { %>
+                    <p>
+                        Course:
+                        <% if (currentUser.course && currentUser.course.length > 0) { %>
+                        <%= currentUser.course %>
+                        <% } else { %>
+                        N/A
+                        <% }%>
+                    </p>
+                    <% } %>
+
                 </div>
             </div>
 

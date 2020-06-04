@@ -8,7 +8,9 @@ let userSchema = new mongoose.Schema({
 	password: String,
 	email: String,
 	accountType: String,
-	department: String
+	department: String,
+	officeHours: String,
+	course: String
 });
 
 userSchema.plugin(passportLocalMongoose);

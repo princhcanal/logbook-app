@@ -157,7 +157,8 @@
 }
 
 .input-group input,
-.input-group select {
+.input-group select,
+.input-group textarea {
 	padding: 1rem;
 	outline: none;
 	border: none;
@@ -166,6 +167,10 @@
 	box-shadow: 0.3rem 0.3rem 0.5rem var(--color-box-shadow);
 	font-family: inherit;
 	font-size: 1rem;
+}
+
+textarea {
+	resize: none;
 }
 
 .input-group select {
@@ -182,6 +187,11 @@
 
 #signupForm button {
 	margin-left: auto;
+}
+
+#logbookLogForm button {
+	margin: 1rem auto;
+	width: 30%;
 }
 
 .input-group.buttons {

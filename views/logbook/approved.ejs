@@ -48,7 +48,7 @@
 <div class="logbook-container">
 
     <div class="table-title title-only">
-        <h1 class="office-title">CMBA</h1>
+        <h1 class="office-title"><%= currentUser.department %> </h1>
     </div>
 
     <div class="searchbar">
@@ -67,31 +67,28 @@
                 <div class="column">STATUS</div>
                 <div class="column">APPROVED</div>
             </div>
+
+            <% logs.forEach(log => { %>
             <div class="row">
-                <div class="column doc-id">06032020-1</div>
+                <div class="column doc-id"><%= log.docId %> </div>
                 <div class="column re">
-                    CMBA
+                    <%= log.sender %>
                 </div>
                 <div class="column staff">
                     <div class="destinations">
-                        <p>SSD</p>
-                        <p>PE DEPT</p>
-                        <p>MSDO</p>
-                        <p>PCO</p>
+                        <p><%= log.destination %></p>
                     </div>
                 </div>
                 <div class="column status">
                     <div class="statuses">
-                        <p>by Dax: 6-21-20</p>
-                        <p>by Jhon: 6-22-20</p>
-                        <p>by Raul: 6-25-20</p>
-                        <p>by Rob: 6-28-20</p>
+                        <p><%= log.status %> </p>
                     </div>
                 </div>
                 <div class="column approved">
-                    July 02, 2020
+                    <%= log.approvedDate %> 
                 </div>
             </div>
+            <% }) %>
         </div>
     </div>
 </div>

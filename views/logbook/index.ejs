@@ -47,7 +47,7 @@
 
 <div class="logbook-container">
 	<div class="table-title">
-		<h1 class="office-title">CMBA</h1>
+		<h1 class="office-title"><%= currentUser.department %> </h1>
 		<div class="table-buttons">
 			<button> <a href="/logbook/new">Add</a></button>
 		</div>
@@ -64,180 +64,59 @@
 				<div class="column">STATUS</div>
 				<div class="column">ACTION</div>
 			</div>
+			<% logs.forEach(log => { %>
 			<div class="row">
-				<div class="column doc-id">06032020-1</div>
+				<div class="column doc-id"><%= log.docId %> </div>
 				<div class="column re">
-					Letter of Dr...Permission to hold a seminar on July 4,
-					2020...To borrow sound system
+					<% if (log.re.length > 0) { %>
+					<%= log.re %>
+					<% } else { %>
+					-
+					<% } %>
 				</div>
-				<div class="column doc-type">-</div>
-				<div class="column due-date">June 24, 2020</div>
+				<div class="column doc-type">
+					<% if (log.docType.length > 0) { %>
+					<%= log.docType %>
+					<% } else { %>
+					-
+					<% } %>
+				</div>
+				<div class="column due-date">
+					<% if (log.dueDate) { %>
+					<%= log.dueDate %>
+					<% } else { %>
+					-
+					<% } %>
+				</div>
 				<div class="column destination">
 					<div class="destinations">
-						<p>SSD</p>
-						<p>PE DEPT</p>
-						<p>MSDO</p>
-						<p>PCO</p>
+						<p>
+							<% if (log.destination.length > 0) { %>
+							<%= log.destination %>
+							<% } else { %>
+							-
+							<% } %>
+						</p>
 					</div>
 				</div>
 				<div class="column status">
 					<div class="statuses">
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-						<p>FROZEN</p>
+						<% if (log.status.length > 0) { %>
+						<%= log.status %>
+						<% } else { %>
+						-
+						<% } %>
 					</div>
 				</div>
 				<div class="column action">
 					<div class="actions">
-						<button>Approve</button>
-						<button>Delete</button>
+						<button class="approve-btn">Approve</button>
+						<button class="delete-btn">Delete</button>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="column doc-id">06032020-1</div>
-				<div class="column re">
-					Letter of Dr...Permission to hold a seminar on July 4,
-					2020...To borrow sound system
-				</div>
-				<div class="column doc-type">-</div>
-				<div class="column due-date">June 24, 2020</div>
-				<div class="column destination">
-					<div class="destinations">
-						<p>SSD</p>
-						<p>PE DEPT</p>
-						<p>MSDO</p>
-						<p>PCO</p>
-					</div>
-				</div>
-				<div class="column status">
-					<div class="statuses">
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-					</div>
-				</div>
-				<div class="column action">
-					<div class="actions">
-						<button>Approve</button>
-						<button>Delete</button>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="column doc-id">06032020-1</div>
-				<div class="column re">
-					Letter of Dr...Permission to hold a seminar on July 4,
-					2020...To borrow sound system
-				</div>
-				<div class="column doc-type">-</div>
-				<div class="column due-date">June 24, 2020</div>
-				<div class="column destination">
-					<div class="destinations">
-						<p>SSD</p>
-						<p>PE DEPT</p>
-						<p>MSDO</p>
-						<p>PCO</p>
-					</div>
-				</div>
-				<div class="column status">
-					<div class="statuses">
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-					</div>
-				</div>
-				<div class="column action">
-					<div class="actions">
-						<button>Approve</button>
-						<button>Delete</button>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="column doc-id">06032020-1</div>
-				<div class="column re">
-					Letter of Dr...Permission to hold a seminar on July 4,
-					2020...To borrow sound system
-				</div>
-				<div class="column doc-type">-</div>
-				<div class="column due-date">June 24, 2020</div>
-				<div class="column destination">
-					<div class="destinations">
-						<p>SSD</p>
-						<p>PE DEPT</p>
-						<p>MSDO</p>
-						<p>PCO</p>
-					</div>
-				</div>
-				<div class="column status">
-					<div class="statuses">
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-						<p>FROZEN</p>
-					</div>
-				</div>
-				<div class="column action">
-					<div class="actions">
-						<button>Approve</button>
-						<button>Delete</button>
-					</div>
-				</div>
-			</div>
+			<% }) %>
+
 		</div>
 	</div>
-	<!-- <div class="table-div">
-		<table>
-			<thead>
-				<tr>
-					<th>DOC ID</th>
-					<th>RE:</th>
-					<th>DOC TYPE</th>
-					<th>DUE DATE</th>
-					<th>DESTINATION</th>
-					<th>STATUS</th>
-					<th>ACTION</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<tr>
-					<td>06032020-1</td>
-					<td>
-						Letter of Dr...Permission to hold a seminar on July 4,
-						2020...To borrow sound system
-					</td>
-					<td>-</td>
-					<td>June 24, 2020</td>
-					<td>
-						<div class="destinations">
-							<p>SSD</p>
-							<p>PE DEPT</p>
-							<p>MSDO</p>
-							<p>PCO</p>
-						</div>
-					</td>
-					<td>
-						<div class="statuses">
-							<p>FROZEN</p>
-							<p>FROZEN</p>
-							<p>FROZEN</p>
-							<p>FROZEN</p>
-						</div>
-					</td>
-					<td>
-						<div class="actions">
-							<button>Approve</button>
-							<button>Delete</button>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div> -->
-</div>
-<%- include ../partials/footer %>
+	<%- include ../partials/footer %>

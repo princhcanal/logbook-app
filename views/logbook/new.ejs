@@ -51,39 +51,33 @@
         <h1 class="office-title">CMBA</h1>
     </div>
 
-    <div class="table-container">
-        <div class="table">
-            <div class="row table-header">
-                <div class="column">DOC ID</div>
-                <div class="column">RE:</div>
-                <div class="column">SENDER</div>
-                <div class="column">DESTINATION</div>
-                <div class="column">REMARKS</div>
-                <div class="column">PRIORITY</div>
-            </div>
-            <div class="row">
-                <div class="column doc-id">06032020-1</div>
-                <div class="column re">
-                    Letter of Dr...Permission to hold a seminar on July 4,
-                    2020...To borrow sound system
-                </div>
-                <div class="column sender">CMBA</div>
-                <div class="column destination">
-                    <div class="destinations">
-                        <p>SSD</p>
-                        <p>PE DEPT</p>
-                        <p>MSDO</p>
-                        <p>PCO</p>
-                    </div>
-                </div>
-                <div class="column remarks">
-                    -
-                </div>
-                <div class="column priority">
-                    -
-                </div>
-            </div>
+    <form action="/logbook/new" method="POST" id="logbookLogForm" class="form">
+        <h2>Add a new log</h2>
+        <div class="input-group">
+            <label for="logRe">Re:</label>
+            <!-- <input name="re" type="textarea" id="logRe" placeholder="Re" /> -->
+            <textarea name="re" id="logRe" cols="30" rows="10"></textarea>
         </div>
-    </div>
+        <div class="input-group">
+            <label for="logDocType">Document Type</label>
+            <input name="docType" type="text" id="logDocType" placeholder="Document type" />
+        </div>
+        <div class="input-group">
+            <label for="logDueDate">Due date</label>
+            <input name="dueDate" type="date" id="logDueDate" placeholder="Due date" />
+        </div>
+        <div class="input-group">
+            <label for="logDestination">Destination</label>
+            <select name="destination" id="logDestination">
+                <option value="" selected disabled>Department</option>
+                <% departments.forEach(department => { %>
+                <option value=<%= department.abbreviation %>><%= department.name %> </option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="input-group">
+            <button>Add</button>
+        </div>
+    </form>
 </div>
 <%- include ../partials/footer %>

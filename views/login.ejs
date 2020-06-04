@@ -37,27 +37,27 @@
 					<h2>Signup here!</h2>
 					<div class="input-group">
 						<label for="email">Email</label>
-						<input name="email" type="text" id="email" placeholder="Email" />
+						<input name="email" type="text" id="email" placeholder="Email" required />
 					</div>
 					<div class="input-group">
 						<label for="signupFirstName">First Name</label>
-						<input name="firstname" type="text" id="signupFirstName" placeholder="First name" />
+						<input name="firstname" type="text" id="signupFirstName" placeholder="First name" required />
 					</div>
 					<div class="input-group">
 						<label for="signupLastName">Last Name</label>
-						<input name="lastname" type="text" id="signupLastName" placeholder="Last name" />
+						<input name="lastname" type="text" id="signupLastName" placeholder="Last name" required />
 					</div>
 					<div class="input-group">
 						<label for="signupUsername">Username</label>
-						<input name="username" type="text" id="signupUsername" placeholder="Username" />
+						<input name="username" type="text" id="signupUsername" placeholder="Username" required />
 					</div>
 					<div class="input-group">
 						<label for="signupPassword">Password</label>
-						<input name="password" type="password" id="signupPassword" placeholder="Password" />
+						<input name="password" type="password" id="signupPassword" placeholder="Password" required />
 					</div>
 					<div class="input-group">
 						<label for="accType">Account Type</label>
-						<select name="accType" id="accType">
+						<select name="accType" id="accType" required>
 							<option value="" selected disabled>Account Type (NAS/STAFF/ADMIN)</option>
 							<option value="NAS">NAS</option>
 							<option value="STAFF">STAFF</option>
@@ -66,11 +66,11 @@
 					</div>
 					<div class="input-group">
 						<label for="department">Department</label>
-						<select name="department" id="department">
+						<select name="department" id="department" required>
 							<option value="" selected disabled>Department</option>
-							<option value="CMBA">CMBA</option>
-							<option value="SSD">SSD</option>
-							<option value="MSDO">MSDO</option>
+							<% departments.forEach(department => { %>
+							<option value=<%= department.abbreviation %>><%= department.name %> </option>
+							<% }) %>
 						</select>
 					</div>
 					<div class="input-group">
@@ -80,8 +80,5 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div style="text-align: center; margin-bottom: 2rem;">
-	<a href="/logbook" style="color: maroon;">Go to dashboard</a>
 </div>
 <%- include partials/footer %>

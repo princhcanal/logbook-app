@@ -2,10 +2,19 @@ let express = require("express");
 let router = express.Router();
 let passport = require('passport');
 let User = require('../models/user');
+let Department = require('../models/department');
 
 // root route
 router.get("/", (req, res) => {
-	res.render("login");
+	Department.find({}, (err, departments) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('login', {
+				departments: departments
+			});
+		}
+	})
 });
 
 // AUTH ROUTES //

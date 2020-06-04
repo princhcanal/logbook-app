@@ -1,0 +1,19 @@
+<%- include ../partials/header %>
+
+<div style="width: 80%; height: 100vh; margin: auto;">
+    <form action="/department/new" class="form" style="margin-top: 30vh;" method="POST">
+        <div class="input-group">
+            <label for="departmentName">Department Name</label>
+            <input name="name" type="text" id="departmentName" placeholder="Department name">
+        </div>
+        <div class="input-group">
+            <label for="departmentAbbrev">Department Abbreviation</label>
+            <input name="abbrev" type="text" id="departmentAbbrev" placeholder="Department abbreviation">
+        </div>
+        <div class="input-group">
+            <button>Create</button>
+        </div>
+    </form>
+</div>
+
+<%- include ../partials/footer %>
