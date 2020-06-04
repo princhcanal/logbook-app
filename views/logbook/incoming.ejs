@@ -13,6 +13,9 @@
             <div class="profile-buttons">
                 <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
                 <a href="/logbook/profile">Profile</a>
+                <% if (currentUser) { %>
+                <a href="/logout">Logout</a>
+                <% } %>
             </div>
         </div>
         <div class="hamburger-icon">
@@ -34,6 +37,9 @@
         <a href="/logbook" class="">Home</a>
         <a href="/logbook/incoming" class="link-selected">Incoming</a>
         <a href="/logbook/approved">Approved</a>
+        <% if (currentUser) { %>
+        <a href="/logout">Logout</a>
+        <% } %>
     </div>
 </div>
 

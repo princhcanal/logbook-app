@@ -226,7 +226,7 @@ header {
 	color: var(--color-maroon);
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
 	.nav-links {
 		display: none;
 	}

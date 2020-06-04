@@ -3,7 +3,11 @@ let express = require("express"),
 	bodyParser = require("body-parser"),
 	methodOverride = require("method-override"),
 	mongoose = require("mongoose"),
-	path = require("path");
+	path = require("path"),
+	passport = require('passport'),
+	LocalStrategy = require('passport-local'),
+	flash = require('connect-flash'),
+	User = require('./models/user');
 
 let indexRoutes = require("./routes/index"),
 	logbookRoutes = require("./routes/logbook");
@@ -14,6 +18,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname + "/public")));
+app.use(flash());
 app.use(methodOverride("_method"));
 
 let db = "";
@@ -27,6 +32,27 @@ mongoose.connect(db, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useFindAndModify: false,
+});
+
+// PASSPORT CONFIGURATION
+app.use(
+	require("express-session")({
+		secret: "The quick brown fox jumps over the lazy dog",
+		resave: false,
+		saveUninitialized: false,
+	})
+);
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+	res.locals.currentUser = req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
+	next();
 });
 
 if (app.get("port") === 3000) {

@@ -11,4 +11,12 @@
 </head>
 
 <body>
+	<div>
+		<% if (error && error.length > 0) { %>
+		<%= error %>
+		<% } %>
+		<% if (success && success.length > 0) { %>
+		<%= success %>
+		<% } %>
+	</div>
 	<div class="wrapper">

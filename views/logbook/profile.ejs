@@ -13,6 +13,9 @@
             <div class="profile-buttons">
                 <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
                 <a href="/logbook/profile" class="link-selected">Profile</a>
+                <% if (currentUser) { %>
+                <a href="/logout">Logout</a>
+                <% } %>
             </div>
         </div>
         <div class="hamburger-icon">
@@ -34,6 +37,9 @@
         <a href="/logbook">Home</a>
         <a href="/logbook/incoming">Incoming</a>
         <a href="/logbook/approved">Approved</a>
+        <% if (currentUser) { %>
+        <a href="/logout">Logout</a>
+        <% } %>
     </div>
 </div>
 
@@ -49,9 +55,9 @@
                         alt="">
                 </div>
                 <div class="desc">
-                    <p>Name: Seth</p>
-                    <p>Department: CMBA</p>
-                    <p>Account Type: NAS</p>
+                    <p>Name: <%= currentUser.firstName + ' ' + currentUser.lastName %> </p>
+                    <p>Department: <%= currentUser.department %> </p>
+                    <p>Account Type: <%= currentUser.accountType %> </p>
                     <p>Office Hours: 1 - 3pm</p>
                     <p>Course: BSCpE</p>
                 </div>
