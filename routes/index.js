@@ -21,16 +21,17 @@ router.get("/", (req, res) => {
 	// 		}
 	// 	});
 	// } else {
-	Department.find({}, (err, departments) => {
-		if (err) {
-			console.log(err);
-		} else {
-			res.render('login', {
-				departments: departments
-			});
-		}
-	});
+	// 	Department.find({}, (err, departments) => {
+	// 		if (err) {
+	// 			console.log(err);
+	// 		} else {
+	// 			res.render('login', {
+	// 				departments: departments
+	// 			});
+	// 		}
+	// 	});
 	// }
+	res.send('home page')
 });
 
 // AUTH ROUTES //
