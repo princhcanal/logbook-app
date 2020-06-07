@@ -12,8 +12,10 @@ router.post('/new', (req, res) => {
         abbreviation: req.body.abbrev
     }, (err, department) => {
         if (err) {
+            console.log('DEPARTMENT ERROR');
             console.log(err);
         } else {
+            console.log('DEPARTMENT REDIRECT');
             res.redirect('/department');
         }
     })
