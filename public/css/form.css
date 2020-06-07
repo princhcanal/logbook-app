@@ -146,8 +146,63 @@
 	flex-direction: column;
 }
 
-.input-group:not(:last-child) {
+.input-group-inline {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+}
+
+.input-group-inline.signup {
+	justify-content: space-between;
+}
+
+.input-group-inline.signup .input-group {
+	margin-right: 0;
+}
+
+.input-group-inline.docdue,
+.input-group-inline.selects {
+	justify-content: space-between;
+}
+
+.input-group-inline.docdue .input-group {
+	width: 45%;
+}
+
+#logDueDate {
+	width: 100%;
+}
+
+@media (max-width: 800px) {
+	.input-group-inline.docdue .input-group {
+		width: 100%;
+	}
+
+	.input-group-inline.selects .input-group {
+		width: 45%;
+	}
+}
+
+@media (max-width: 502px) {
+	.input-group-inline.selects .input-group {
+		width: 100%;
+	}
+}
+
+@media (max-width: 762px) {
+	.input-group-inline.signup {
+		flex-direction: column;
+	}
+
+	.input-group-inline.signup .input-group {
+		margin-right: 0;
+		margin-bottom: 2rem;
+	}
+}
+
+.input-group {
 	margin-bottom: 2rem;
+	position: relative;
 }
 
 .input-group label {
@@ -167,6 +222,22 @@
 	box-shadow: 0.3rem 0.3rem 0.5rem var(--color-box-shadow);
 	font-family: inherit;
 	font-size: 1rem;
+}
+
+option {
+	padding: 0 1rem;
+}
+
+.input-group-select {
+	/* width: 23%; */
+	display: flex;
+	align-items: center;
+	width: 95%;
+	margin: 0 auto;
+}
+
+.input-group-select .input-group {
+	width: 90%;
 }
 
 textarea {
@@ -192,6 +263,13 @@ textarea {
 #logbookLogForm button {
 	margin: 1rem auto;
 	width: 30%;
+}
+
+.input-group-select button.add-destination {
+	margin: 0 0 0 1rem !important;
+	padding: .25rem .5rem !important;
+	height: 50% !important;
+	width: auto !important;
 }
 
 .input-group.buttons {
@@ -317,4 +395,46 @@ textarea {
 	.login-options-group {
 		padding: 1rem 0rem;
 	}
+}
+
+input,
+textarea,
+select {
+	transition: all .2s;
+	border-bottom: 3px solid transparent;
+}
+
+input:focus,
+input:valid,
+textarea:focus,
+textarea:valid,
+select:focus,
+select:valid {
+	border-bottom: 3px solid #7AE582;
+}
+
+input:focus:invalid,
+input:invalid,
+textarea:focus:invalid,
+textarea:invalid,
+select:focus:invalid,
+select:invalid {
+	border-bottom: 3px solid #F15152;
+}
+
+.invalid-input {
+	position: absolute;
+	top: 2.3rem;
+	padding: 1rem;
+	font-size: .8rem;
+	color: var(--color-maroon);
+	opacity: 0;
+	transition: all .3s;
+	z-index: -1;
+}
+
+.show-invalid-input {
+	top: 5rem;
+	opacity: 1;
+	z-index: 1;
 }

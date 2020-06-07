@@ -1,0 +1,42 @@
+.flash {
+    width: 40%;
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    background-color: var(--color-gold);
+    color: var(--color-maroon);
+    font-weight: 700;
+    border-radius: .5rem;
+    padding: 1rem;
+    animation: flash 3s ease-out forwards;
+}
+
+@keyframes flash {
+    0% {
+        top: -10%;
+    }
+
+    10% {
+        top: 5%;
+    }
+
+    20% {
+        top: 3%;
+    }
+
+    80% {
+        top: 3%;
+    }
+
+    90% {
+        top: 5%;
+    }
+
+    100% {
+        top: -10%;
+    }
+
+}

@@ -11,7 +11,8 @@
 </head>
 
 <body>
-	<div>
+	<% if ((error && error.length > 0) || (success && success.length > 0)) { %>
+	<div class="flash">
 		<% if (error && error.length > 0) { %>
 		<%= error %>
 		<% } %>
@@ -19,4 +20,5 @@
 		<%= success %>
 		<% } %>
 	</div>
+	<% } %>
 	<div class="wrapper">

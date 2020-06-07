@@ -10,7 +10,11 @@ let userSchema = new mongoose.Schema({
 	accountType: String,
 	department: String,
 	officeHours: String,
-	course: String
+	course: String,
+	logs: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'LogbookLog'
+	}]
 });
 
 userSchema.plugin(passportLocalMongoose);

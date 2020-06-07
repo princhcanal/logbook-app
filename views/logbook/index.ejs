@@ -49,7 +49,7 @@
 	<div class="table-title">
 		<h1 class="office-title"><%= currentUser.department %> </h1>
 		<div class="table-buttons">
-			<button> <a href="/logbook/new">Add</a></button>
+			<a href="/logbook/new">Add</a>
 		</div>
 	</div>
 
@@ -64,60 +64,64 @@
 				<div class="column">STATUS</div>
 				<div class="column">ACTION</div>
 			</div>
-			<% logs.forEach(log => { %>
-			<div class="row">
-				<div class="column doc-id"><%= log.docId %></div>
-				<div class="column re">
-					<% if (log.re.length > 0) { %>
-					<%= log.re %>
-					<% } else { %>
-					-
-					<% } %>
-				</div>
-				<div class="column doc-type">
-					<% if (log.docType.length > 0) { %>
-					<%= log.docType %>
-					<% } else { %>
-					-
-					<% } %>
-				</div>
-				<div class="column due-date">
-					<% if (log.dueDate) { %>
-					<%= log.dueDate %>
-					<% } else { %>
-					-
-					<% } %>
-				</div>
-				<div class="column destination">
-					<div class="destinations">
-						<p>
-							<% if (log.destination.length > 0) { %>
-							<%= log.destination %>
-							<% } else { %>
-							-
-							<% } %>
-						</p>
-					</div>
-				</div>
-				<div class="column status">
-					<div class="statuses">
-						<% if (log.status.length > 0) { %>
-						<%= log.status %>
+			<div class="table-rows">
+				<% logs.forEach(log => { %>
+				<div class="row index">
+					<div class="column"><%= log.docId %></div>
+					<div class="column re">
+						<% if (log.re.length > 0) { %>
+						<%= log.re %>
 						<% } else { %>
 						-
 						<% } %>
 					</div>
-				</div>
-				<div class="column action">
-					<div class="actions">
-						<div class="loader hide"></div>
-						<button class="approve-btn">Approve</button>
-						<button class="delete-btn">Delete</button>
-						<div class="loader hide"></div>
+					<div class="column doc-type">
+						<% if (log.docType.length > 0) { %>
+						<%= log.docType %>
+						<% } else { %>
+						-
+						<% } %>
+					</div>
+					<div class="column due-date">
+						<% if (log.dueDate) { %>
+						<%= log.dueDate %>
+						<% } else { %>
+						-
+						<% } %>
+					</div>
+					<div class="column destination">
+						<div class="destinations">
+							<% if (log.destinations && log.destinations.length > 0) { %>
+							<% log.destinations.forEach(destination => { %>
+							<% if (destination && destination.length > 0) { %>
+							<p><span><%= destination %></span></p>
+							<% } %>
+							<% }) %>
+							<% } %>
+						</div>
+					</div>
+					<div class="column status">
+						<div class="statuses">
+							<% if (log.statuses && log.statuses.length > 0) { %>
+							<% log.statuses.forEach((status, i) => { %>
+							<% if (log.destinations[i] && log.destinations[i].length > 0) { %>
+							<p><span><%= status %></span></p>
+							<% } %>
+							<% }) %>
+							<% } %>
+						</div>
+					</div>
+					<div class="column action">
+						<div class="actions">
+							<div class="loader hide"></div>
+							<button class="approve-btn">Approve</button>
+							<button class="delete-btn">Delete</button>
+							<div class="loader hide"></div>
+						</div>
 					</div>
 				</div>
+				<% }) %>
 			</div>
-			<% }) %>
 
 		</div>
 	</div>

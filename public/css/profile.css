@@ -16,6 +16,7 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 2rem;
+    align-items: stretch;
 }
 
 .info {
@@ -24,18 +25,24 @@
     width: 30%;
     background-color: var(--color-maroon);
     color: var(--color-yellow);
-    padding: 2rem;
+    padding: 2rem 1rem 0;
 }
 
 .info .image {
     text-align: center;
-    margin: auto;
+    margin: 0 auto;
 }
 
 .info .image img {
     width: 4rem;
     border-radius: 50%;
 }
+
+/* .info .desc p {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+} */
 
 .logs {
     display: flex;
@@ -54,11 +61,15 @@
 }
 
 .log {
-    /* padding: 1rem; */
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .log li {
     padding: .5rem 0;
+    width: 90%;
+    margin: 0 auto;
+    display: none;
 }
 
 .user-profile-buttons {
@@ -70,6 +81,16 @@
 
 .user-profile-buttons button a {
     color: var(--color-yellow);
+}
+
+.see-more {
+    cursor: pointer;
+    align-self: center;
+    border-bottom: 1px solid transparent;
+}
+
+.see-more:hover {
+    border-bottom: 1px solid var(--color-maroon);
 }
 
 @media (max-width: 911px) {

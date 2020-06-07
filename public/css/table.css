@@ -10,14 +10,15 @@
 	overflow-x: scroll;
 }
 
-.table-container::-webkit-scrollbar {
-	display: block;
-}
-
 .table {
 	border: 3px solid var(--color-maroon);
-	width: 1000px;
+	width: 950px;
 	margin: 0 auto;
+}
+
+.table-rows {
+	display: flex;
+	flex-direction: column-reverse;
 }
 
 .row {
@@ -29,11 +30,11 @@
 	justify-content: space-between;
 }
 
-.row:not(:last-child) {
+.table-rows .row {
 	border-bottom: 3px solid var(--color-maroon);
 }
 
-.row:not(:first-child):nth-child(odd) {
+.table-rows .row:nth-child(even) {
 	background-color: var(--color-yellow);
 }
 
@@ -57,6 +58,11 @@
 .column {
 	width: 250px;
 	padding: 1rem;
+}
+
+.column.destination,
+.column.status {
+	padding: 0 1rem;
 }
 
 .column:not(:last-child) {
@@ -99,6 +105,10 @@
 
 .actions button:not(:last-of-type) {
 	margin-bottom: 1rem;
+}
+
+.actions .received-message {
+	text-align: center;
 }
 
 .table-div {

@@ -56,25 +56,82 @@
         <div class="input-group">
             <label for="logRe">Re:</label>
             <!-- <input name="re" type="textarea" id="logRe" placeholder="Re" /> -->
-            <textarea name="re" id="logRe" cols="30" rows="10"></textarea>
+            <textarea name="re" id="logRe" cols="30" rows="10" required></textarea>
         </div>
-        <div class="input-group">
-            <label for="logDocType">Document Type</label>
-            <input name="docType" type="text" id="logDocType" placeholder="Document type" />
+        <div class="input-group-inline add-new-log docdue">
+            <div class="input-group">
+                <label for="logDocType">Document Type</label>
+                <input name="docType" type="text" id="logDocType" placeholder="Document type" />
+            </div>
+            <div class="input-group">
+                <label for="logDueDate">Due date</label>
+                <input name="dueDate" type="date" id="logDueDate" placeholder="Due date" />
+            </div>
         </div>
-        <div class="input-group">
-            <label for="logDueDate">Due date</label>
-            <input name="dueDate" type="date" id="logDueDate" placeholder="Due date" />
+        <!-- <div class="input-group-inline selects"> -->
+        <div class="input-group-select">
+            <div class="input-group">
+                <label for="logDestination">Destination 1</label>
+                <select name="destination1" id="logDestination" class="destinations-select" required>
+                    <option value="" selected disabled>Department</option>
+                    <% departments.forEach(department => { %>
+                    <% if (department.abbreviation !== currentUser.department) { %>
+                    <option value=<%= department.abbreviation %>><%= department.name %> </option>
+                    <% } %>
+                    <% }) %>
+                </select>
+            </div>
+            <button class="add-destination">+</button>
         </div>
-        <div class="input-group">
-            <label for="logDestination">Destination</label>
-            <select name="destination" id="logDestination">
-                <option value="" selected disabled>Department</option>
-                <% departments.forEach(department => { %>
-                <option value=<%= department.abbreviation %>><%= department.name %> </option>
-                <% }) %>
-            </select>
+        <div class="input-group-select">
+            <div class="input-group">
+                <label for="logDestination">Destination 1</label>
+                <select name="destination1" id="logDestination" class="destinations-select" required>
+                    <option value="" selected disabled>Department</option>
+                    <% departments.forEach(department => { %>
+                    <% if (department.abbreviation !== currentUser.department) { %>
+                    <option value=<%= department.abbreviation %>><%= department.name %> </option>
+                    <% } %>
+                    <% }) %>
+                </select>
+            </div>
+            <button class="add-destination">+</button>
         </div>
+        <!-- <div class="input-group select">
+                <label for="logDestination">Destination 2 (optional)</label>
+                <select name="destination2" id="logDestination" class="destinations-select">
+                    <option value="" selected disabled>Department</option>
+                    <% departments.forEach(department => { %>
+                    <% if (department.abbreviation !== currentUser.department) { %>
+                    <option value=<%= department.abbreviation %>><%= department.name %> </option>
+                    <% } %>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="input-group select">
+                <label for="logDestination">Destination 3 (optional)</label>
+                <select name="destination3" id="logDestination" class="destinations-select">
+                    <option value="" selected disabled>Department</option>
+                    <% departments.forEach(department => { %>
+                    <% if (department.abbreviation !== currentUser.department) { %>
+                    <option value=<%= department.abbreviation %>><%= department.name %> </option>
+                    <% } %>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="input-group select">
+                <label for="logDestination">Destination 4 (optional)</label>
+                <select name="destination4" id="logDestination" class="destinations-select">
+                    <option value="" selected disabled>Department</option>
+                    <% departments.forEach(department => { %>
+                    <% if (department.abbreviation !== currentUser.department) { %>
+                    <option value=<%= department.abbreviation %>><%= department.name %> </option>
+                    <% } %>
+                    <% }) %>
+                </select>
+            </div> -->
+
+        <!-- </div> -->
         <div class="input-group">
             <button>Add</button>
         </div>

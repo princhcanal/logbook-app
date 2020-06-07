@@ -29,14 +29,18 @@ body {
 	padding-bottom: 5rem;
 }
 
+.wrapper::-webkit-scrollbar {
+	display: none;
+}
+
 a {
 	text-decoration: none;
 }
 
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
 	display: none;
-}
+} */
 
 ::selection {
 	background-color: var(--color-gold);

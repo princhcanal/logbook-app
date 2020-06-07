@@ -2,20 +2,10 @@ let express = require("express");
 let router = express.Router();
 let middleware = require('../middleware');
 let Log = require('../models/logbookLog');
-let Department = require('../models/department')
+let Department = require('../models/department');
+let ActivityLog = require('../models/activityLog');
 
 router.get("/", middleware.isLoggedIn, (req, res) => {
-	// Department.findOne({
-	// 	abbreviation: req.user.department
-	// }).populate('logs').exec((err, department) => {
-	// 	if (err) {
-	// 		console.log(err);
-	// 	} else {
-	// 		res.render('logbook/index', {
-	// 			logs: department.logs
-	// 		})
-	// 	}
-	// })
 	Log.find({
 		sender: req.user.department,
 		approved: false
@@ -44,7 +34,6 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 
 // create a log
 router.post('/new', middleware.isLoggedIn, (req, res) => {
-	console.log(req.body);
 	let today = new Date()
 	let day = today.getDate();
 	let month = today.getMonth() + 1;
@@ -58,19 +47,24 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	let dueDate = req.body.dueDate;
-	let date = dueDate.split('-');
-	let dueDateString = `${months[Number(dueDate[1])]} ${date[2]}, ${date[0]}`
+	let date;
+	let dueDateString;
+	if (dueDate) {
+		date = dueDate.split('-');
+		dueDateString = `${months[Number(dueDate[1])]} ${date[2]}, ${date[0]}`
+	} else {
+		dueDateString = '-'
+	}
 
 	let logData = {
 		re: req.body.re,
 		docType: req.body.docType,
 		dueDate: dueDateString,
-		destination: req.body.destination,
-		status: 'FROZEN',
-		approved: false
+		approved: false,
+		returned: false
 	}
 
-	Department.find({
+	Department.findOne({
 		abbreviation: req.user.department
 	}, (err, department) => {
 		if (err) {
@@ -84,10 +78,29 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 				} else {
 					log.author = req.user.firstName + ' ' + req.user.lastName;
 					log.sender = req.user.department
-					log.docId = `${dateString}-${department[0].logs.length + 1}`
+					log.docId = `${dateString}-${department.logs.length + 1}`
+					log.destinations.push(req.body.destination1);
+					log.destinations.push(req.body.destination2);
+					log.destinations.push(req.body.destination3);
+					log.destinations.push(req.body.destination4);
+					for (let i = 0; i < 4; i++) {
+						log.statuses.push('FROZEN');
+					}
 					log.save();
-					department[0].logs.push(log);
-					department[0].save();
+					department.logs.push(log);
+					department.save();
+					let activityLogData = {
+						log: `${req.user.firstName} ${req.user.lastName} added a ${log.docType.length > 0 ? log.docType : 'document'} to rout (document #${log.docId}) `,
+						author: req.user.username
+					}
+					ActivityLog.create(activityLogData, (err, activityLog) => {
+						if (err) {
+							req.flash('error', 'Something went wrong');
+							console.log(err);
+						} else {
+							req.user.logs.push(activityLog);
+						}
+					});
 					req.flash('success', 'Successfully added log');
 					res.redirect('/logbook');
 				}
@@ -97,7 +110,27 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 });
 
 // approve a log
-router.put('/', (req, res) => {
+router.put('/', middleware.isLoggedIn, (req, res) => {
+	Log.findOne({
+		docId: req.body.docId
+	}, (err, log) => {
+		if (err) {
+			console.log(err);
+		} else {
+			let activityLogData = {
+				log: `${req.user.firstName} ${req.user.lastName} approved a ${log.docType.length > 0 ? log.docType : 'document'} (document #${log.docId}) `,
+				author: req.user.username
+			}
+			ActivityLog.create(activityLogData, (err, activityLog) => {
+				if (err) {
+					console.log(err);
+				} else {
+					req.user.logs.push(activityLog);
+				}
+			});
+		}
+	});
+
 	let today = new Date()
 	let day = today.getDate();
 	let month = today.getMonth() + 1;
@@ -120,7 +153,26 @@ router.put('/', (req, res) => {
 	})
 })
 
-router.delete('/', (req, res) => {
+router.delete('/', middleware.isLoggedIn, (req, res) => {
+	Log.findOne({
+		docId: req.body.docId
+	}, (err, log) => {
+		if (err) {
+			console.log(err);
+		} else {
+			let activityLogData = {
+				log: `${req.user.firstName} ${req.user.lastName} deleted a ${log.docType.length > 0 ? log.docType : 'document'} (document #${log.docId}) `,
+				author: req.user.username
+			}
+			ActivityLog.create(activityLogData, (err, activityLog) => {
+				if (err) {
+					console.log(err);
+				} else {
+					req.user.logs.push(activityLog);
+				}
+			});
+		}
+	});
 	Log.deleteOne({
 		docId: req.body.docId
 	}, (err) => {
@@ -134,7 +186,8 @@ router.delete('/', (req, res) => {
 
 router.get('/incoming', middleware.isLoggedIn, (req, res) => {
 	Log.find({
-		destination: req.user.department
+		destinations: req.user.department,
+		returned: false
 	}, (err, logs) => {
 		res.render('logbook/incoming', {
 			logs: logs
@@ -142,8 +195,57 @@ router.get('/incoming', middleware.isLoggedIn, (req, res) => {
 	})
 });
 
+router.put('/incoming', middleware.isLoggedIn, (req, res) => {
+	Log.findOne({
+		docId: req.body.docId
+	}, (err, log) => {
+		if (err) {
+			console.log(err);
+		} else {
+			let activityLogData = {
+				log: `${req.user.firstName} ${req.user.lastName} ${req.body.status.toLowerCase()} a ${log.docType.length > 0 ? log.docType : 'document'} from ${log.sender} (document #${log.docId}) `,
+				author: req.user.username
+			}
+			ActivityLog.create(activityLogData, (err, activityLog) => {
+				if (err) {
+					console.log(err);
+				} else {
+					req.user.logs.push(activityLog);
+				}
+			});
+		}
+	});
+	let today = new Date();
+	let hour = today.getHours();
+	let meridian = 'am';
+	if (hour > 12) {
+		hour -= 12;
+		meridian = 'pm'
+	} else if (hour === 0) {
+		hour = 12;
+	}
+
+	let statuses = req.body.statuses;
+	let indices = req.body.statusIndices;
+	for (let i = 0; i < indices.length; i++) {
+		statuses[indices[i]] = `${req.body.status} by ${req.user.firstName} ${req.user.lastName} @${hour}${meridian}`;
+	}
+
+	Log.updateOne({
+		docId: req.body.docId
+	}, {
+		statuses: statuses,
+		returned: req.body.returned
+	}, (err, log) => {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(log);
+		}
+	})
+})
+
 router.get('/approved', middleware.isLoggedIn, (req, res) => {
-	console.log(req.user.department);
 	Log.find({
 		sender: req.user.department,
 		approved: true
@@ -163,7 +265,17 @@ router.get('/notifications', middleware.isLoggedIn, (req, res) => {
 });
 
 router.get('/profile', middleware.isLoggedIn, (req, res) => {
-	res.render('logbook/profile')
+	ActivityLog.find({
+		author: req.user.username
+	}, (err, activityLogs) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('logbook/profile', {
+				activityLogs: activityLogs
+			});
+		}
+	});
 });
 
 

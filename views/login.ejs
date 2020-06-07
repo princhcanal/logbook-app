@@ -22,11 +22,13 @@
 					<h2>Login here!</h2>
 					<div class="input-group">
 						<label for="loginUsername">Username</label>
-						<input name="username" type="text" id="loginUsername" placeholder="Username" />
+						<div class="invalid-input">Please enter a username</div>
+						<input name="username" type="text" id="loginUsername" placeholder="Username" required />
 					</div>
 					<div class="input-group">
 						<label for="loginPassword">Password</label>
-						<input name="password" type="password" id="loginPassword" placeholder="Password" />
+						<div class="invalid-input">Please enter a password</div>
+						<input name="password" type="password" id="loginPassword" placeholder="Password" required />
 					</div>
 					<div class="input-group buttons">
 						<a>Forgot password?</a>
@@ -37,26 +39,39 @@
 					<h2>Signup here!</h2>
 					<div class="input-group">
 						<label for="email">Email</label>
-						<input name="email" type="text" id="email" placeholder="Email" required />
+						<div class="invalid-input">Please enter a valid email</div>
+						<input name="email" type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+							placeholder="Email" required />
 					</div>
-					<div class="input-group">
-						<label for="signupFirstName">First Name</label>
-						<input name="firstname" type="text" id="signupFirstName" placeholder="First name" required />
+					<div class="input-group-inline signup">
+						<div class="input-group">
+							<label for="signupFirstName">First Name</label>
+							<div class="invalid-input">Please enter your first name</div>
+							<input name="firstname" type="text" id="signupFirstName" placeholder="First name"
+								required />
+						</div>
+						<div class="input-group">
+							<label for="signupLastName">Last Name</label>
+							<div class="invalid-input">Please enter your last name</div>
+							<input name="lastname" type="text" id="signupLastName" placeholder="Last name" required />
+						</div>
 					</div>
-					<div class="input-group">
-						<label for="signupLastName">Last Name</label>
-						<input name="lastname" type="text" id="signupLastName" placeholder="Last name" required />
-					</div>
-					<div class="input-group">
-						<label for="signupUsername">Username</label>
-						<input name="username" type="text" id="signupUsername" placeholder="Username" required />
-					</div>
-					<div class="input-group">
-						<label for="signupPassword">Password</label>
-						<input name="password" type="password" id="signupPassword" placeholder="Password" required />
+					<div class="input-group-inline signup">
+						<div class="input-group">
+							<label for="signupUsername">Username</label>
+							<div class="invalid-input">Please enter a username</div>
+							<input name="username" type="text" id="signupUsername" placeholder="Username" required />
+						</div>
+						<div class="input-group">
+							<label for="signupPassword">Password</label>
+							<div class="invalid-input">Please enter a password</div>
+							<input name="password" type="password" id="signupPassword" placeholder="Password"
+								required />
+						</div>
 					</div>
 					<div class="input-group">
 						<label for="accType">Account Type</label>
+						<div class="invalid-input">Please choose an account type</div>
 						<select name="accType" id="accType" required>
 							<option value="" selected disabled>Account Type (NAS/STAFF/ADMIN)</option>
 							<option value="NAS">NAS</option>
@@ -66,6 +81,7 @@
 					</div>
 					<div class="input-group">
 						<label for="department">Department</label>
+						<div class="invalid-input">Please choose a department</div>
 						<select name="department" id="department" required>
 							<option value="" selected disabled>Department</option>
 							<% departments.forEach(department => { %>
@@ -74,7 +90,7 @@
 						</select>
 					</div>
 					<div class="input-group">
-						<button>Sign Up!</button>
+						<button type="submit">Sign Up!</button>
 					</div>
 				</form>
 			</div>
