@@ -7,7 +7,6 @@ let Log = require('../models/logbookLog');
 
 // root route
 router.get("/", (req, res) => {
-	console.log(req.user);
 	if (req.user) {
 		Log.find({
 			sender: req.user.department,
