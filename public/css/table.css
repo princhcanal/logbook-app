@@ -95,7 +95,7 @@
 	-ms-flex-direction: column;
 	flex-direction: column;
 	-ms-flex-pack: distribute;
-	justify-content: space-around;
+	justify-content: center;
 	height: 100%;
 }
 

@@ -39,7 +39,6 @@ deleteButtons.forEach(deleteButton => {
         let data = {
             docId: docId
         }
-        console.log(docId)
 
         deleteButton.classList.add('hide');
         loader.classList.remove('hide');
@@ -50,7 +49,6 @@ deleteButtons.forEach(deleteButton => {
                 docId: docId
             }
         }).then(response => {
-            console.log(response)
             setTimeout(() => {
                 loader.classList.add('hide');
                 row.remove();

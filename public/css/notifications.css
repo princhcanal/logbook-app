@@ -1,4 +1,6 @@
 .notifications {
+    display: flex;
+    flex-direction: column-reverse;
     border: 3px solid var(--color-maroon);
 }
 
@@ -6,6 +8,6 @@
     padding: 1rem;
 }
 
-.notification:not(:last-of-type) {
+.notification:not(:first-child) {
     border-bottom: 3px solid var(--color-maroon);
 }

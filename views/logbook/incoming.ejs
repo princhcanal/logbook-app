@@ -65,7 +65,7 @@
             </div>
             <div class="table-rows">
                 <% logs.forEach(log => { %>
-                <% if (!log.statuses[log.destinations.indexOf(currentUser.department)].includes('Returned') && !log.statuses[log.destinations.indexOf(currentUser.department)].includes('Processed')) { %>
+                <% if (!log.statuses[log.destinations.indexOf(currentUser.department)].includes('Returned') && !log.statuses[log.destinations.indexOf(currentUser.department)].includes('Processed') &&!log.approved) { %>
                 <div class="row">
                     <div class="column doc-id"><%= log.docId %></div>
                     <div class="column sender">

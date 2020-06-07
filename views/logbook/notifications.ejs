@@ -47,7 +47,9 @@
 
 <div class="login-container">
     <div class="notifications">
-        <div class="notification">Document #061620-09 is almost due. Due date is June 24, 2020</div>
+        <% notifications.forEach(notification => { %>
+        <div class="notification"><%= notification.text %> </div>
+        <% }) %>
     </div>
 </div>
 <%- include ../partials/footer %>

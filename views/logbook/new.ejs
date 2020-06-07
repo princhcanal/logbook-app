@@ -72,7 +72,7 @@
         <div class="input-group-select">
             <div class="input-group">
                 <label for="logDestination">Destination 1</label>
-                <select name="destination1" id="logDestination" class="destinations-select" required>
+                <select name="destinations[destination1]" id="logDestination" class="destinations-select" required>
                     <option value="" selected disabled>Department</option>
                     <% departments.forEach(department => { %>
                     <% if (department.abbreviation !== currentUser.department) { %>
@@ -83,10 +83,12 @@
             </div>
             <button class="add-destination">+</button>
         </div>
-        <div class="input-group-select">
+        <% for( let i = 1; i < departments.length; i++ ) { %>
+        <div class="input-group-select" style="display: none;">
             <div class="input-group">
-                <label for="logDestination">Destination 1</label>
-                <select name="destination1" id="logDestination" class="destinations-select" required>
+                <label for=<%= `logDestination${i + 1}` %>>Destination <%= i + 1 %> (optional)</label>
+                <select name=<%= `destinations[destination${i + 1}]` %> id=<%= `logDestination${i + 1}` %>
+                    class="destinations-select">
                     <option value="" selected disabled>Department</option>
                     <% departments.forEach(department => { %>
                     <% if (department.abbreviation !== currentUser.department) { %>
@@ -97,6 +99,7 @@
             </div>
             <button class="add-destination">+</button>
         </div>
+        <% } %>
         <!-- <div class="input-group select">
                 <label for="logDestination">Destination 2 (optional)</label>
                 <select name="destination2" id="logDestination" class="destinations-select">

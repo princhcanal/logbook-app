@@ -4,6 +4,62 @@ let middleware = require('../middleware');
 let Log = require('../models/logbookLog');
 let Department = require('../models/department');
 let ActivityLog = require('../models/activityLog');
+let Notification = require('../models/notification');
+
+function checkLogDates(logs, userDepartment) {
+	let today = new Date();
+	let day = today.getDate();
+	let month = today.getMonth();
+	let year = today.getFullYear();
+	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+	if (day < 10) day = '0' + day;
+
+	let todayString = `${months[month]} ${day}, ${year}`;
+
+	for (let log of logs) {
+		if (log.pendingDate === todayString) {
+			let notificationData = {
+				receiver: log.sender,
+				text: `Document #${log.docId} has been pending for 3 days`
+			}
+			Notification.create(notificationData, (err, notification) => {
+				if (err) {
+					console.log(err);
+				}
+			});
+		}
+		if (log.almostDueDate === todayString) {
+			let notificationData = {
+				receiver: log.sender,
+				text: `Document #${log.docId} is almost due. Due date is ${log.dueDate}`
+			}
+			Notification.find({
+				receiver: userDepartment
+			}, (err, notifications) => {
+				if (err) {
+					console.log(err);
+				} else {
+					let isNotified = false;
+					for (let notification of notifications) {
+						if (notification.text === notificationData.text) {
+							isNotified = true;
+							break;
+						}
+					}
+					if (!isNotified) {
+						Notification.create(notificationData, (err, notification) => {
+							if (err) {
+								console.log(err);
+							}
+						});
+					}
+				}
+			});
+
+		}
+	}
+}
 
 router.get("/", middleware.isLoggedIn, (req, res) => {
 	Log.find({
@@ -13,14 +69,26 @@ router.get("/", middleware.isLoggedIn, (req, res) => {
 		if (err) {
 			console.log(err);
 		} else {
+			checkLogDates(logs, req.user.department);
 			res.render('logbook/index', {
 				logs: logs
 			});
 		}
-	})
+	});
 });
 
 router.get('/new', middleware.isLoggedIn, (req, res) => {
+	Log.find({
+		sender: req.user.department,
+		approved: false
+	}, (err, logs) => {
+		if (err) {
+			console.log(err);
+		} else {
+			checkLogDates(logs, req.user.department);
+		}
+	});
+
 	Department.find({}, (err, departments) => {
 		if (err) {
 			console.log(err);
@@ -40,29 +108,63 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 	let year = today.getFullYear();
 
 	if (day < 10) day = '0' + day;
-	if (month < 10) day = '0' + month;
+	if (month < 10) month = '0' + month;
 
 	let dateString = `${month}${day}${year}`
 
 	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+	let createdDate = `${months[month - 1]} ${day}, ${year}`;
+
+	Date.prototype.addDays = function (days) {
+		var date = new Date(this.valueOf());
+		date.setDate(date.getDate() + days);
+		return date;
+	}
+
+	let pendingDate = new Date();
+	pendingDate = pendingDate.addDays(3);
+	let pendingDateDay = pendingDate.getDate();
+	let pendingDateMonth = pendingDate.getMonth() + 1;
+	let pendingDateYear = pendingDate.getFullYear();
+
+	if (pendingDateDay < 10) pendingDateDay = '0' + pendingDateDay
+	if (pendingDateMonth < 10) pendingDateMonth = '0' + pendingDateMonth
+
+	let pendingDateString = `${months[pendingDateMonth - 1]} ${pendingDateDay}, ${pendingDateYear}`;
 
 	let dueDate = req.body.dueDate;
 	let date;
 	let dueDateString;
 	if (dueDate) {
 		date = dueDate.split('-');
-		dueDateString = `${months[Number(dueDate[1])]} ${date[2]}, ${date[0]}`
+		dueDateString = `${months[Number(date[1] - 1)]} ${date[2]}, ${date[0]}`
 	} else {
 		dueDateString = '-'
 	}
+
+	let almostDueDate = new Date(dueDateString);
+	almostDueDate = almostDueDate.addDays(-1);
+	let almostDueDateDay = almostDueDate.getDate();
+	let almostDueDateMonth = almostDueDate.getMonth() + 1;
+	let almostDueDateYear = almostDueDate.getFullYear();
+
+	if (almostDueDateDay < 10) almostDueDateDay = '0' + almostDueDateDay
+	if (almostDueDateMonth < 10) almostDueDateMonth = '0' + almostDueDateMonth
+
+	let almostDueDateString = `${months[almostDueDateMonth - 1]} ${almostDueDateDay}, ${almostDueDateYear}`;
 
 	let logData = {
 		re: req.body.re,
 		docType: req.body.docType,
 		dueDate: dueDateString,
 		approved: false,
-		returned: false
+		returned: false,
+		createdDate: createdDate,
+		pendingDate: pendingDateString,
+		almostDueDate: almostDueDateString
 	}
+
 
 	Department.findOne({
 		abbreviation: req.user.department
@@ -78,12 +180,10 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 				} else {
 					log.author = req.user.firstName + ' ' + req.user.lastName;
 					log.sender = req.user.department
-					log.docId = `${dateString}-${department.logs.length + 1}`
-					log.destinations.push(req.body.destination1);
-					log.destinations.push(req.body.destination2);
-					log.destinations.push(req.body.destination3);
-					log.destinations.push(req.body.destination4);
-					for (let i = 0; i < 4; i++) {
+					log.docId = `${dateString}-${department.logs.length + 1}`;
+					let destinations = req.body.destinations
+					for (let destination in destinations) {
+						log.destinations.push(destinations[destination]);
 						log.statuses.push('FROZEN');
 					}
 					log.save();
@@ -186,6 +286,17 @@ router.delete('/', middleware.isLoggedIn, (req, res) => {
 
 router.get('/incoming', middleware.isLoggedIn, (req, res) => {
 	Log.find({
+		sender: req.user.department,
+		approved: false
+	}, (err, logs) => {
+		if (err) {
+			console.log(err);
+		} else {
+			checkLogDates(logs, req.user.department);
+		}
+	});
+
+	Log.find({
 		destinations: req.user.department,
 		returned: false
 	}, (err, logs) => {
@@ -211,6 +322,16 @@ router.put('/incoming', middleware.isLoggedIn, (req, res) => {
 					console.log(err);
 				} else {
 					req.user.logs.push(activityLog);
+				}
+			});
+
+			let notificationData = {
+				receiver: log.sender,
+				text: `Document #${log.docId} was ${req.body.status.toLowerCase()} by ${req.user.firstName} ${req.user.lastName} from ${req.user.department}`
+			}
+			Notification.create(notificationData, (err, notification) => {
+				if (err) {
+					console.log(err);
 				}
 			});
 		}
@@ -248,6 +369,17 @@ router.put('/incoming', middleware.isLoggedIn, (req, res) => {
 router.get('/approved', middleware.isLoggedIn, (req, res) => {
 	Log.find({
 		sender: req.user.department,
+		approved: false
+	}, (err, logs) => {
+		if (err) {
+			console.log(err);
+		} else {
+			checkLogDates(logs, req.user.department);
+		}
+	});
+
+	Log.find({
+		sender: req.user.department,
 		approved: true
 	}, (err, logs) => {
 		if (err) {
@@ -261,10 +393,33 @@ router.get('/approved', middleware.isLoggedIn, (req, res) => {
 });
 
 router.get('/notifications', middleware.isLoggedIn, (req, res) => {
-	res.render('logbook/notifications')
+
+
+	Notification.find({
+		receiver: req.user.department
+	}, (err, notifications) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('logbook/notifications', {
+				notifications: notifications
+			})
+		}
+	})
 });
 
 router.get('/profile', middleware.isLoggedIn, (req, res) => {
+	Log.find({
+		sender: req.user.department,
+		approved: false
+	}, (err, logs) => {
+		if (err) {
+			console.log(err);
+		} else {
+			checkLogDates(logs, req.user.department);
+		}
+	});
+
 	ActivityLog.find({
 		author: req.user.username
 	}, (err, activityLogs) => {

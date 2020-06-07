@@ -93,6 +93,12 @@
     border-bottom: 1px solid var(--color-maroon);
 }
 
+@media (hover: none) {
+    .see-more {
+        border-bottom: 1px solid var(--color-maroon);
+    }
+}
+
 @media (max-width: 911px) {
 
     .profile-container {

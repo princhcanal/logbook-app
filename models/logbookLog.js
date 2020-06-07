@@ -15,7 +15,10 @@ let logbookLogSchema = new mongoose.Schema({
     sender: String,
     approved: Boolean,
     approvedDate: String,
-    returned: Boolean
+    returned: Boolean,
+    createdDate: String,
+    pendingDate: String,
+    almostDueDate: String
 });
 
 module.exports = mongoose.model('LogbookLog', logbookLogSchema);
