@@ -57,13 +57,13 @@ app.use((req, res, next) => {
 	next();
 });
 
-if (app.get("port") === 3000) {
-	let liveReload = require("livereload"),
-		liveReloadServer = liveReload.createServer(),
-		connectLiveReload = require("connect-livereload");
-	liveReloadServer.watch(path.join(__dirname + "/public"));
-	app.use(connectLiveReload());
-}
+// if (app.get("port") === 3000) {
+// 	let liveReload = require("livereload"),
+// 		liveReloadServer = liveReload.createServer(),
+// 		connectLiveReload = require("connect-livereload");
+// 	liveReloadServer.watch(path.join(__dirname + "/public"));
+// 	app.use(connectLiveReload());
+// }
 
 app.use(indexRoutes);
 app.use("/logbook", logbookRoutes);
