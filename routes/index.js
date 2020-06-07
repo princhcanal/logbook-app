@@ -7,31 +7,31 @@ let Log = require('../models/logbookLog');
 
 // root route
 router.get("/", (req, res) => {
-	// if (req.user) {
-	// 	Log.find({
-	// 		sender: req.user.department,
-	// 		approved: false
-	// 	}, (err, logs) => {
-	// 		if (err) {
-	// 			console.log(err);
-	// 		} else {
-	// 			res.render('logbook/index', {
-	// 				logs: logs
-	// 			});
-	// 		}
-	// 	});
-	// } else {
-	// 	Department.find({}, (err, departments) => {
-	// 		if (err) {
-	// 			console.log(err);
-	// 		} else {
-	// 			res.render('login', {
-	// 				departments: departments
-	// 			});
-	// 		}
-	// 	});
-	// }
-	res.send('home page')
+	console.log(req.user);
+	if (req.user) {
+		Log.find({
+			sender: req.user.department,
+			approved: false
+		}, (err, logs) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.render('logbook/index', {
+					logs: logs
+				});
+			}
+		});
+	} else {
+		Department.find({}, (err, departments) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.render('login', {
+					departments: departments
+				});
+			}
+		});
+	}
 });
 
 // AUTH ROUTES //
