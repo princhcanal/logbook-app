@@ -65,8 +65,8 @@ if (app.get("port") === 3000) {
 }
 
 app.use(indexRoutes);
-// app.use("/logbook", logbookRoutes);
-// app.use("/department", departmentRoutes);
+app.use("/logbook", logbookRoutes);
+app.use("/department", departmentRoutes);
 
 let port = app.get("port");
 let server = app.listen(port, () => {
