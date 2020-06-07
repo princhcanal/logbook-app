@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/new', (req, res) => {
+    console.log('DEPARTMENT ENTERING');
     Deparment.create({
         name: req.body.name,
         abbreviation: req.body.abbrev
