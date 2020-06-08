@@ -14,6 +14,7 @@ router.post('/new', (req, res) => {
         if (err) {
             console.log(err);
         } else {
+            req.flash('success', 'Successfully created department');
             res.redirect('/department');
         }
     })
