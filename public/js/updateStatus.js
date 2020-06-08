@@ -143,7 +143,7 @@ receiveButtons.forEach(receiveButton => {
             docId: docId,
             statuses: statuses,
             status: 'Received',
-            returned: !statuses.includes('FROZEN') && !statuses.includes('Received'),
+            returned: false,
             statusIndices: statusIndices
         }
 

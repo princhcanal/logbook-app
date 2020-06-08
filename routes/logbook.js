@@ -313,6 +313,11 @@ router.get('/incoming', middleware.isLoggedIn, (req, res) => {
 		destinations: req.user.department,
 		returned: false
 	}, (err, logs) => {
+		// logs = logs.filter((log) => {
+		// 	return !log.statuses[log.destinations.indexOf(req.user.department)].includes('Returned') &&
+		// 		!log.statuses[log.destinations.indexOf(req.user.department)].includes('Processed') &&
+		// 		!log.approved
+		// })
 		res.render('logbook/incoming', {
 			logs: logs
 		})

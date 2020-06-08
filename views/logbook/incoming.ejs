@@ -72,6 +72,7 @@
             <div class="table-rows">
                 <% logs.forEach(log => { %>
                 <% if (!log.statuses[log.destinations.indexOf(currentUser.department)].includes('Returned') && !log.statuses[log.destinations.indexOf(currentUser.department)].includes('Processed') &&!log.approved) { %>
+
                 <div class="row incoming">
                     <div class="column doc-id"><%= log.docId %></div>
                     <div class="column sender">
@@ -81,12 +82,12 @@
                     <div class="column action">
                         <div class="actions">
                             <div class="loader hide"></div>
-                            <% if (!log.statuses.includes('Received')) { %>
+                            <% if (!log.statuses[log.destinations.indexOf(currentUser.department)].includes('Received')) { %>
                             <button class="process-btn">Process</button>
                             <button class="receive-btn">Receive</button>
                             <% } %>
                             <div class="loader hide"></div>
-                            <% if (log.statuses.includes('Received')) { %>
+                            <% if (log.statuses[log.destinations.indexOf(currentUser.department)].includes('Received')) { %>
                             <div class="received-message">Received!</div>
                             <% } else { %>
                             <div class="received-message hide">Received!</div>
@@ -96,7 +97,7 @@
                     <div class="column action">
                         <div class="actions">
                             <div class="loader hide"></div>
-                            <% if (log.statuses.includes('Received')) { %>
+                            <% if (log.statuses[log.destinations.indexOf(currentUser.department)].includes('Received')) { %>
                             <button class="return-btn">Return</button>
                             <% } else { %>
                             <button class="return-btn" disabled>Return</button>
@@ -104,9 +105,9 @@
                         </div>
                     </div>
                 </div>
-
                 <% } %>
                 <% }) %>
+
                 <% logs.forEach(log => { %>
                 <div class="row index" style="display: none;">
                     <div class="column"><%= log.docId %></div>

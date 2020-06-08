@@ -19,11 +19,11 @@
         top: -20%;
     }
 
-    20% {
+    10% {
         top: 5%;
     }
 
-    30% {
+    20% {
         top: 3%;
     }
 
@@ -39,4 +39,22 @@
         top: -20%;
     }
 
+}
+
+@media (max-width: 830px) {
+    .flash {
+        width: 60%;
+    }
+}
+
+@media (max-width: 580px) {
+    .flash {
+        width: 70%;
+    }
+}
+
+@media (max-width: 480px) {
+    .flash {
+        width: 90%;
+    }
 }
