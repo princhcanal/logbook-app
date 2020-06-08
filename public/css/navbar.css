@@ -86,11 +86,8 @@ header {
 }
 
 .links a {
-	/* width: 20%; */
-}
-
-.links a {
 	margin-right: 2rem;
+	position: relative;
 }
 
 .profile-buttons {
@@ -121,6 +118,7 @@ header {
 	display: none;
 	font-size: 2rem;
 	cursor: pointer;
+	position: relative;
 }
 
 .hamburger-menu {
@@ -211,6 +209,7 @@ header {
 
 .menu-links a {
 	padding: 1rem 0;
+	position: relative;
 }
 
 .menu-links a {

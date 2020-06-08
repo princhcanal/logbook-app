@@ -1,0 +1,25 @@
+.num-notification {
+    background-color: var(--color-red);
+    color: var(--color-white);
+    position: absolute;
+    border-radius: 50%;
+    font-size: 1rem;
+    padding: 1rem 1.3rem;
+    transform: scale(.45);
+    display: none;
+}
+
+.links .num-notification {
+    top: -2rem;
+    right: -1.6rem;
+}
+
+.hamburger-icon .num-notification {
+    top: -1.5rem;
+    right: -1.5rem;
+}
+
+.menu-links .num-notification {
+    top: 0;
+    right: 33%;
+}

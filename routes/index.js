@@ -5,26 +5,28 @@ let User = require('../models/user');
 let Department = require('../models/department');
 let Log = require('../models/logbookLog');
 
+function sort(arr) {
+	for (let i = 0; i < arr.length; i++) {
+		for (let j = i + 1; j < arr.length; j++) {
+			if (arr[j].name < arr[i].name) {
+				let temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+	}
+}
+
 // root route
 router.get("/", (req, res) => {
 	if (req.user) {
-		Log.find({
-			sender: req.user.department,
-			approved: false
-		}, (err, logs) => {
-			if (err) {
-				console.log(err);
-			} else {
-				res.render('logbook/index', {
-					logs: logs
-				});
-			}
-		});
+		res.redirect('/logbook');
 	} else {
 		Department.find({}, (err, departments) => {
 			if (err) {
 				console.log(err);
 			} else {
+				sort(departments);
 				res.render('login', {
 					departments: departments
 				});
@@ -62,7 +64,8 @@ router.post('/signup', (req, res) => {
 // login
 router.post('/login', passport.authenticate('local', {
 	successRedirect: '/logbook',
-	failureRedirect: '/'
+	failureRedirect: '/',
+	failureFlash: true
 }), (req, res) => {});
 
 // logout

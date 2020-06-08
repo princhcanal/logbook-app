@@ -56,6 +56,7 @@
         <div class="input-group">
             <label for="logRe">Re:</label>
             <!-- <input name="re" type="textarea" id="logRe" placeholder="Re" /> -->
+            <div class="invalid-input">Please input a re:</div>
             <textarea name="re" id="logRe" cols="30" rows="10" required></textarea>
         </div>
         <div class="input-group-inline add-new-log docdue">
@@ -72,6 +73,7 @@
         <div class="input-group-select">
             <div class="input-group">
                 <label for="logDestination">Destination 1</label>
+                <div class="invalid-input">Please enter a destination</div>
                 <select name="destinations[destination1]" id="logDestination" class="destinations-select" required>
                     <option value="" selected disabled>Department</option>
                     <% departments.forEach(department => { %>

@@ -6,6 +6,18 @@ let Department = require('../models/department');
 let ActivityLog = require('../models/activityLog');
 let Notification = require('../models/notification');
 
+function sort(arr) {
+	for (let i = 0; i < arr.length; i++) {
+		for (let j = i + 1; j < arr.length; j++) {
+			if (arr[j].name < arr[i].name) {
+				let temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+	}
+}
+
 function checkLogDates(logs, userDepartment) {
 	let today = new Date();
 	let day = today.getDate();
@@ -93,6 +105,7 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 		if (err) {
 			console.log(err);
 		} else {
+			sort(departments);
 			res.render('logbook/new', {
 				departments: departments
 			});

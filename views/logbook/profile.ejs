@@ -58,25 +58,6 @@
                     <p><span>Name:</span> <span><%= currentUser.firstName + ' ' + currentUser.lastName %></span></p>
                     <p><span>Department:</span> <span><%= currentUser.department %></span></p>
                     <p><span>Account Type:</span> <span><%= currentUser.accountType %></span></p>
-                    <!-- <p>
-                        <span>Office Hours:</span>
-                        <% if (currentUser.officeHours && currentUser.officeHours.length > 0) { %>
-                        <span><%= currentUser.officeHours %></span>
-                        <% } else { %>
-                        <span>N/A</span>
-                        <% }%>
-                    </p>
-                    <% if (currentUser.accountType === 'NAS') { %>
-                    <p>
-                        <span>Course:</span>
-                        <% if (currentUser.course && currentUser.course.length > 0) { %>
-                        <span><%= currentUser.course %></span>
-                        <% } else { %>
-                        <span>N/A</span>
-                        <% }%>
-                    </p> -->
-                    <% } %>
-
                 </div>
             </div>
 
@@ -89,13 +70,15 @@
                     <li><%= activityLog.log %></li>
                     <% }) %>
                 </ul>
+                <% if (activityLogs.length > 10) { %>
                 <a class="see-more">See More</a>
+                <% } %>
             </div>
         </div>
-        <div class="user-profile-buttons">
+        <!-- <div class="user-profile-buttons">
             <button>Change Password</button>
             <button><a href="/logbook">Home</a></button>
-        </div>
+        </div> -->
     </div>
 </div>
 <%- include ../partials/footer %>
