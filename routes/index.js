@@ -21,21 +21,15 @@ router.get("/", (req, res) => {
 			}
 		});
 	} else {
-		// Department.find({}, (err, departments) => {
-		// 	if (err) {
-		// 		console.log(err);
-		// 	} else {
-		// 		res.render('login', {
-		// 			departments: departments
-		// 		});
-		// 	}
-		// });
-		res.render('login', {
-			departments: [{
-				abbreviation: 'ETO',
-				name: 'Enrollment Technical Office'
-			}]
-		})
+		Department.find({}, (err, departments) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.render('login', {
+					departments: departments
+				});
+			}
+		});
 	}
 });
 
