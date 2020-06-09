@@ -7,8 +7,7 @@ approveButtons.forEach(approveButton => {
         let loader = approveButton.previousElementSibling;
         let docId = row.children[0].innerHTML;
         let data = {
-            docId: docId,
-            approved: true
+            docId: docId
         };
 
         // hide approve button

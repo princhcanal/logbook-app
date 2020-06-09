@@ -1,6 +1,8 @@
-let middlewareObj = {};
+let middleware = {};
+let Log = require('../models/logbookLog');
+let logbook = require('../utilities/logbook');
 
-middlewareObj.isLoggedIn = function (req, res, next) {
+middleware.isLoggedIn = function (req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
@@ -8,4 +10,18 @@ middlewareObj.isLoggedIn = function (req, res, next) {
     res.redirect('/');
 }
 
-module.exports = middlewareObj;
+middleware.checkNotifications = function (req, res, next) {
+    Log.find({
+        sender: req.user.department,
+        approved: false
+    }, (err, logs) => {
+        if (err) {
+            console.log(err);
+        } else {
+            logbook.pushNotifications(logs, req.user.department);
+            return next();
+        }
+    });
+}
+
+module.exports = middleware;
