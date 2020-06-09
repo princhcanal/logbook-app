@@ -17,6 +17,5 @@ seeMore.addEventListener('click', () => {
             logs[i].style.display = 'none';
         }
         seeMore.innerHTML = 'See More';
-
     }
 })

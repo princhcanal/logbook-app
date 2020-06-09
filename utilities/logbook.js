@@ -58,7 +58,6 @@ logbook.pushNotifications = function (logs, userDepartment) {
                     }
                 }
             });
-
         }
     }
 }
