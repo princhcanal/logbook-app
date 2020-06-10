@@ -19,9 +19,7 @@ fileInput.addEventListener('change', (e) => {
         editProfile.style.display = 'inline-block';
     }).catch(err => {
         console.log(err);
-    });
-    if (currentProfile === editProfile.getAttribute('src')) {
         loader.style.display = 'none';
         editProfile.style.display = 'inline-block';
-    }
+    });
 });
