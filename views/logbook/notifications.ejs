@@ -12,7 +12,16 @@
             </div>
             <div class="profile-buttons">
                 <a href="/logbook/notifications" class="link-selected"><i class="fas fa-bell notification-icon"></i></a>
-                <a href="/logbook/profile" class="">Profile</a>
+                <a href="/logbook/profile" class="">
+                    <div class="image">
+                        <% if (currentUser.profilePicture && currentUser.profilePicture.length > 0) { %>
+                        <img src="<%= currentUser.profilePicture %>" alt="" class="profile-image">
+                        <% } else { %>
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                            alt="" class="profile-image">
+                        <% } %>
+                    </div>
+                </a>
                 <% if (currentUser) { %>
                 <a href="/logout">Logout</a>
                 <% } %>
@@ -30,7 +39,16 @@
         </div>
         <div class="menu-profile">
             <a href="/logbook/notifications" class="link-selected"><i class="fas fa-bell notification-icon"></i></a>
-            <a href="/logbook/profile">Profile</a>
+            <a href="/logbook/profile">
+                <div class="image">
+                    <% if (currentUser.profilePicture && currentUser.profilePicture.length > 0) { %>
+                    <img src="<%= currentUser.profilePicture %>" alt="" class="profile-image">
+                    <% } else { %>
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        alt="" class="profile-image">
+                    <% } %>
+                </div>
+            </a>
         </div>
     </div>
     <div class="menu-links">

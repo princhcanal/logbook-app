@@ -144,6 +144,9 @@
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
+	margin-bottom: 2rem;
+	margin-right: 1rem;
+	position: relative;
 }
 
 .input-group-inline {
@@ -156,10 +159,6 @@
 	justify-content: space-between;
 }
 
-.input-group-inline.signup .input-group {
-	margin-right: 0;
-}
-
 .input-group-inline.docdue,
 .input-group-inline.selects {
 	justify-content: space-between;
@@ -169,8 +168,23 @@
 	width: 45%;
 }
 
+.input-group-inline.profile {
+	justify-content: center;
+}
+
+.input-group.change-profile {
+	width: 12rem;
+	margin: 0 auto 2rem;
+}
+
 #logDueDate {
 	width: 100%;
+}
+
+@media (max-width: 1100px) {
+	.input-group-inline.signup .input-group {
+		width: 100%;
+	}
 }
 
 @media (max-width: 800px) {
@@ -202,11 +216,6 @@
 		margin-right: 0;
 		margin-bottom: 2rem;
 	}
-}
-
-.input-group {
-	margin-bottom: 2rem;
-	position: relative;
 }
 
 .input-group label {
@@ -267,6 +276,12 @@ textarea {
 #logbookLogForm button {
 	margin: 1rem auto;
 	width: 30%;
+}
+
+#editProfileForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .input-group-select button.add-destination {
@@ -399,6 +414,17 @@ textarea {
 	.login-options-group {
 		padding: 1rem 0rem;
 	}
+}
+
+input[type="file"] {
+	display: none;
+}
+
+.custom-file-upload {
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	margin-top: .5rem;
 }
 
 input,

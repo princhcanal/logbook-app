@@ -1,6 +1,7 @@
 let express = require("express");
 let router = express.Router();
 let middleware = require('../middleware');
+let User = require('../models/user');
 let Log = require('../models/logbookLog');
 let Department = require('../models/department');
 let ActivityLog = require('../models/activityLog');
@@ -8,6 +9,29 @@ let Notification = require('../models/notification');
 let logbook = require('../utilities/logbook');
 let sort = require('../utilities/sort');
 let dates = require('../utilities/dates');
+let multer = require('multer');
+let storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, './uploads/')
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	}
+});
+let fileFilter = (req, file, cb) => {
+	if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+		cb(null, true);
+	} else {
+		cb(null, false);
+	}
+}
+let upload = multer({
+	storage: storage,
+	limits: {
+		fileSize: 1024 * 1024 * 5
+	},
+	fileFilter: fileFilter
+});
 
 router.get("/", middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
 	Log.find({
@@ -223,6 +247,40 @@ router.get('/profile', middleware.isLoggedIn, middleware.checkNotifications, (re
 	});
 });
 
+router.get('/profile/edit', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
+	res.render('logbook/edit-profile');
+})
 
+router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture'), (req, res) => {
+	let newUserData = {
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		profilePicture: '/' + req.file.path
+	}
+	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
+		if (err) {
+			req.flash('error', 'Something went wrong')
+			res.redirect('/logbook/profile/edit');
+		} else {
+			res.redirect('/logbook/profile');
+		}
+	})
+});
+
+router.put('/profile/edit/picture', middleware.isLoggedIn, upload.single('profilePicture'), (req, res) => {
+	let newUserData = {
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		profilePicture: '/' + req.file.path
+	}
+	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
+		if (err) {
+			req.flash('error', 'Something went wrong')
+			res.redirect('/logbook/profile/edit');
+		} else {
+			res.redirect(303, '/logbook/profile');
+		}
+	});
+})
 
 module.exports = router;

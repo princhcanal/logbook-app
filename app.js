@@ -14,21 +14,27 @@ let indexRoutes = require("./routes/index"),
 	departmentRoutes = require('./routes/department');
 
 app.set("port", process.env.PORT || 3000);
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({
-	extended: true
+	extended: false
 }));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname + "/public")));
 app.use(flash());
 app.use(methodOverride("_method"));
-
-// let db = "";
-// if (app.get("port") === 3000) {
-// 	db = "mongodb://localhost:27017/logbook_app";
-// } else {
-// 	db = 'mongodb://princhcanal:logbook@cluster0-shard-00-00-onyef.mongodb.net:27017,cluster0-shard-00-01-onyef.mongodb.net:27017,cluster0-shard-00-02-onyef.mongodb.net:27017/logbook?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
-// }
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept, Authorization"
+	);
+	if (req.method === "OPTIONS") {
+		res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+		return res.status(200).json({});
+	}
+	next();
+});
 
 let db = process.env.MONGODB_URI || "mongodb://localhost:27017/logbook_app";
 mongoose.connect(db, {
