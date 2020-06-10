@@ -100,6 +100,7 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 					log.docId = `${dateIdString}-${department.logs.length + 1}`;
 
 					let destinations = req.body.destinations
+					console.log(req.body);
 					for (let destination in destinations) {
 						log.destinations.push(destinations[destination]);
 						log.statuses.push('FROZEN');

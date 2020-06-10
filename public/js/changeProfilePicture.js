@@ -1,5 +1,6 @@
 let profilePictures = document.querySelectorAll('.profile-image');
 let editProfile = document.querySelector('#editProfile');
+let currentProfile = editProfile.getAttribute('src');
 let fileInput = document.querySelector('#profileImage');
 let editProfileForm = document.querySelector('#editProfileForm');
 let loader = document.querySelector('.loader');
@@ -19,4 +20,8 @@ fileInput.addEventListener('change', (e) => {
     }).catch(err => {
         console.log(err);
     });
+    if (currentProfile === editProfile.getAttribute('src')) {
+        loader.style.display = 'none';
+        editProfile.style.display = 'inline-block';
+    }
 });

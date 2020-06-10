@@ -16,7 +16,7 @@ let indexRoutes = require("./routes/index"),
 app.set("port", process.env.PORT || 3000);
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({
-	extended: false
+	extended: true
 }));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
