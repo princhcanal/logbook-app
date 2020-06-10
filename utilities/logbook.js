@@ -16,6 +16,31 @@ logbook.addNotification = function (req, log) {
     });
 }
 
+logbook.checkNotified = (department, notificationData) => {
+    Notification.find({
+        receiver: department
+    }, (err, notifications) => {
+        if (err) {
+            console.log(err);
+        } else {
+            let isNotified = false;
+            for (let notification of notifications) {
+                if (notification.text === notificationData.text) {
+                    isNotified = true;
+                    break;
+                }
+            }
+            if (!isNotified) {
+                Notification.create(notificationData, (err, notification) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        }
+    });
+}
+
 logbook.pushNotifications = function (logs, userDepartment) {
     let today = dates.createDateString();
 
@@ -25,39 +50,14 @@ logbook.pushNotifications = function (logs, userDepartment) {
                 receiver: log.sender,
                 text: `Document #${log.docId} has been pending for 3 days`
             }
-            Notification.create(notificationData, (err, notification) => {
-                if (err) {
-                    console.log(err);
-                }
-            });
+            logbook.checkNotified(userDepartment, notificationData)
         }
         if (log.almostDueDate === today) {
             let notificationData = {
                 receiver: log.sender,
                 text: `Document #${log.docId} is almost due. Due date is ${log.dueDate}`
             }
-            Notification.find({
-                receiver: userDepartment
-            }, (err, notifications) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    let isNotified = false;
-                    for (let notification of notifications) {
-                        if (notification.text === notificationData.text) {
-                            isNotified = true;
-                            break;
-                        }
-                    }
-                    if (!isNotified) {
-                        Notification.create(notificationData, (err, notification) => {
-                            if (err) {
-                                console.log(err);
-                            }
-                        });
-                    }
-                }
-            });
+            logbook.checkNotified(userDepartment, notificationData);
         }
     }
 }
