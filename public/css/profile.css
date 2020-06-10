@@ -37,6 +37,8 @@
     height: 5rem;
     border-radius: 50%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
 .image img {
