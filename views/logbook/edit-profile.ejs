@@ -103,7 +103,8 @@
             <label for="profileImage" class="custom-file-upload">
                 Change profile picture
             </label>
-            <input type="file" id="profileImage" name="profilePicture" accept="image/*">
+            <input type="file" id="profileImage" name="profilePicture" accept="image/*"
+                value="<%= currentUser.profilePicture %> ">
         </div>
         <div class="input-group-inline profile">
             <div class="input-group">
@@ -117,6 +118,12 @@
                     placeholder="Last name">
             </div>
         </div>
+        <% if (currentUser.accountType === 'NAS') { %>
+        <div class="input-group course">
+            <label for="course">Course:</label>
+            <input type="text" id="course" name="course" value="<%= currentUser.course %>" placeholder="Course">
+        </div>
+        <% } %>
         <button>Save Changes</button>
     </form>
 </div>

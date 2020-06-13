@@ -144,8 +144,10 @@
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
-	margin-bottom: 2rem;
+	/* margin-bottom: 2rem;
 	margin-right: 1rem;
+	margin-left: 1rem; */
+	margin: 0 1rem 2rem;
 	position: relative;
 }
 
@@ -200,21 +202,6 @@
 @media (max-width: 502px) {
 	.input-group-inline.selects .input-group {
 		width: 100%;
-	}
-}
-
-@media (max-width: 762px) {
-	.input-group-inline.signup {
-		flex-direction: column;
-	}
-
-	.input-group-inline.signup>* {
-		width: 100%;
-	}
-
-	.input-group-inline.signup .input-group {
-		margin-right: 0;
-		margin-bottom: 2rem;
 	}
 }
 
@@ -282,6 +269,44 @@ textarea {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+}
+
+#editProfileForm button {
+	width: 30%;
+	margin: auto;
+	border-radius: 2rem;
+}
+
+#editProfileForm .input-group.course {
+	width: 50%;
+	margin: 0 auto 2rem;
+}
+
+@media (max-width: 608px) {
+
+	#editProfileForm .input-group,
+	#editProfileForm .input-group.course {
+		width: 100%;
+		margin: 0 0 2rem;
+	}
+}
+
+@media (max-width: 670px) {
+	#editProfileForm button {
+		width: 40%;
+	}
+}
+
+@media (max-width: 480px) {
+	#editProfileForm button {
+		width: 50%;
+	}
+}
+
+@media (max-width: 385px) {
+	#editProfileForm button {
+		width: 60%;
+	}
 }
 
 .input-group-select button.add-destination {

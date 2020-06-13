@@ -11,7 +11,8 @@ fileInput.addEventListener('change', (e) => {
     loader.style.display = 'block';
     editProfile.style.display = 'none';
     axios.put(url, formData).then(response => {
-        let imageUrl = `/uploads/${formData.get('profilePicture').name}`;
+        let imageUrl = response.data.profilePicture;
+        console.log(imageUrl)
         profilePictures.forEach(profilePicture => {
             profilePicture.setAttribute('src', imageUrl);
         });

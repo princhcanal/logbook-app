@@ -9,6 +9,7 @@ let Notification = require('../models/notification');
 let logbook = require('../utilities/logbook');
 let sort = require('../utilities/sort');
 let dates = require('../utilities/dates');
+// let upload = require('../utilities/upload');
 let multer = require('multer');
 let storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -41,7 +42,6 @@ router.get("/", middleware.isLoggedIn, middleware.checkNotifications, (req, res)
 		if (err) {
 			console.log(err);
 		} else {
-			// let numIncoming = await logbook.getIncomingLength(req.user.department);
 			res.render('logbook/index', {
 				logs: logs,
 				numIncoming: await logbook.getIncomingLength(req.user.department)
@@ -279,7 +279,8 @@ router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture
 	let newUserData = {
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
-		profilePicture: '/' + req.file.path
+		course: req.body.course,
+		profilePicture: req.file ? '/' + req.file.path : req.user.profilePicture
 	}
 	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
 		if (err) {
@@ -293,18 +294,17 @@ router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture
 
 router.put('/profile/edit/picture', middleware.isLoggedIn, upload.single('profilePicture'), (req, res) => {
 	let newUserData = {
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
-		profilePicture: '/' + req.file.path
+		profilePicture: '/' + req.file.path,
+		// profilePicture: '/image/' + req.file.filename
 	}
 	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
 		if (err) {
 			req.flash('error', 'Something went wrong')
 			res.redirect('/logbook/profile/edit');
 		} else {
-			res.redirect(303, '/logbook/profile');
+			res.send(newUserData);
 		}
 	});
-})
+});
 
 module.exports = router;

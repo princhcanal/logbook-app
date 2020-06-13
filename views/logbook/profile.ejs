@@ -101,6 +101,18 @@
                     <p><span>Name:</span> <span><%= currentUser.firstName + ' ' + currentUser.lastName %></span></p>
                     <p><span>Department:</span> <span><%= currentUser.department %></span></p>
                     <p><span>Account Type:</span> <span><%= currentUser.accountType %></span></p>
+                    <% if (currentUser.accountType === 'NAS') { %>
+                    <p>
+                        <span>Course:</span>
+                        <span>
+                            <% if (currentUser.course && currentUser.course.length > 0) { %>
+                            <%= currentUser.course %>
+                            <% } else { %>
+                            N/A
+                            <% } %>
+                        </span>
+                    </p>
+                    <% } %>
                 </div>
             </div>
 

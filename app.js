@@ -36,8 +36,8 @@ app.use((req, res, next) => {
 	next();
 });
 
-let db = process.env.MONGODB_URI || "mongodb://localhost:27017/logbook_app";
-mongoose.connect(db, {
+let mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/logbook_app";
+mongoose.connect(mongoURI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useFindAndModify: false,

@@ -200,10 +200,26 @@ header {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
+	justify-content: space-evenly;
+	width: 40%;
 }
 
-.menu-profile>* {
-	margin-right: 1.5rem;
+@media (max-width: 550px) {
+	.menu-profile {
+		width: 50%;
+	}
+}
+
+@media (max-width: 450px) {
+	.menu-profile {
+		width: 60%;
+	}
+}
+
+@media (max-width: 350px) {
+	.menu-profile {
+		width: 70%;
+	}
 }
 
 .menu-profile i {
