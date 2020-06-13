@@ -64,6 +64,7 @@ processButtons.forEach(processButton => {
     processButton.addEventListener('click', () => {
         let row = processButton.parentElement.parentElement.parentElement;
         let docId = row.children[0].innerHTML;
+        let sender = row.children[1].innerText;
         let receiveButton = processButton.nextElementSibling;
         let returnButton = row.children[4].children[0].children[1];
         let loader = processButton.previousElementSibling;
@@ -89,6 +90,7 @@ processButtons.forEach(processButton => {
 
         let data = {
             docId: docId,
+            sender: sender,
             statuses: statuses,
             status: 'Processed',
             returned: !statuses.includes('FROZEN') && !statuses.includes('Received'),
@@ -114,6 +116,7 @@ receiveButtons.forEach(receiveButton => {
     receiveButton.addEventListener('click', () => {
         let row = receiveButton.parentElement.parentElement.parentElement;
         let docId = row.children[0].innerHTML;
+        let sender = row.children[1].innerText;
         let processButton = receiveButton.previousElementSibling;
         let returnButton = row.children[4].children[0].children[1];
         let loader = receiveButton.nextElementSibling;
@@ -140,6 +143,7 @@ receiveButtons.forEach(receiveButton => {
 
         let data = {
             docId: docId,
+            sender: sender,
             statuses: statuses,
             status: 'Received',
             returned: false,
@@ -170,6 +174,7 @@ returnButtons.forEach(returnButton => {
     returnButton.addEventListener('click', () => {
         let row = returnButton.parentElement.parentElement.parentElement;
         let docId = row.children[0].innerHTML;
+        let sender = row.children[1].innerText;
         let loader = returnButton.previousElementSibling;
         let indexRows = document.querySelectorAll('.row.index');
         let statuses = [];
@@ -193,6 +198,7 @@ returnButtons.forEach(returnButton => {
 
         let data = {
             docId: docId,
+            sender: sender,
             statuses: statuses,
             status: 'Returned',
             returned: !statuses.includes('FROZEN') && !statuses.includes('Received'),

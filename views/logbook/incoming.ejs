@@ -8,12 +8,19 @@
             <div class="links">
                 <a href="/logbook" class="">Home</a>
                 <a href="/logbook/incoming" class="link-selected">
-                    <span class="num-notification incoming"></span>Incoming
+                    <% if (numIncoming > 0) { %>
+                    <span class="num-notification incoming"><%= numIncoming %></span>
+                    <% } %>
+                    Incoming
                 </a>
                 <a href="/logbook/approved">Approved</a>
             </div>
             <div class="profile-buttons">
-                <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+                <a href="/logbook/notifications">
+                    <% if(currentUser.notifications.length > 0) { %>
+                    <span class="num-notification notif"><%= currentUser.notifications.length %></span>
+                    <% } %>
+                    <i class="fas fa-bell notification-icon"></i></a>
                 <a href="/logbook/profile">
                     <div class="image">
                         <% if (currentUser.profilePicture && currentUser.profilePicture.length > 0) { %>
@@ -30,7 +37,9 @@
             </div>
         </div>
         <div class="hamburger-icon">
-            <span class="num-notification total"></span>
+            <% if (currentUser.notifications.length > 0 || numIncoming > 0) { %>
+            <span class="num-notification total"><%= currentUser.notifications.length + numIncoming %></span>
+            <% } %>
             <i class="fas fa-bars"></i>
         </div>
     </nav>
@@ -41,7 +50,11 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="menu-profile">
-            <a href="/logbook/notifications"><i class="fas fa-bell notification-icon"></i></a>
+            <a href="/logbook/notifications">
+                <% if(currentUser.notifications.length > 0) { %>
+                <span class="num-notification notif"><%= currentUser.notifications.length %></span>
+                <% } %>
+                <i class="fas fa-bell notification-icon"></i></a>
             <a href="/logbook/profile">
                 <div class="image">
                     <% if (currentUser.profilePicture && currentUser.profilePicture.length > 0) { %>
@@ -58,7 +71,10 @@
         <a href="/logbook" class="">Home</a>
 
         <a href="/logbook/incoming" class="link-selected">
-            <span class="num-notification incoming"></span>Incoming
+            <% if (numIncoming > 0) { %>
+            <span class="num-notification incoming"><%= numIncoming %></span>
+            <% } %>
+            Incoming
         </a>
         <a href="/logbook/approved">Approved</a>
         <% if (currentUser) { %>
@@ -89,7 +105,6 @@
             </div>
             <div class="table-rows">
                 <% logs.forEach(log => { %>
-                <% if (!log.statuses[log.destinations.indexOf(currentUser.department)].includes('Returned') && !log.statuses[log.destinations.indexOf(currentUser.department)].includes('Processed') &&!log.approved) { %>
 
                 <div class="row incoming">
                     <div class="column doc-id"><%= log.docId %></div>
@@ -123,7 +138,6 @@
                         </div>
                     </div>
                 </div>
-                <% } %>
                 <% }) %>
 
                 <% logs.forEach(log => { %>

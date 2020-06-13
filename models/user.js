@@ -15,9 +15,10 @@ let userSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'LogbookLog'
 	}],
-	profilePicture: {
+	notifications: [{
 		type: String
-	}
+	}],
+	profilePicture: String
 });
 
 userSchema.plugin(passportLocalMongoose);

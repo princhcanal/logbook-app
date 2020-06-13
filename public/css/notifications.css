@@ -11,3 +11,7 @@
 .notification:not(:first-child) {
     border-bottom: 3px solid var(--color-maroon);
 }
+
+.notification.unread {
+    background-color: var(--color-yellow);
+}

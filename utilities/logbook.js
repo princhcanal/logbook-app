@@ -2,6 +2,7 @@ let logbook = {}
 let Log = require('../models/logbookLog');
 let Notification = require('../models/notification');
 let ActivityLog = require('../models/activityLog');
+let User = require('../models/user');
 let dates = require('./dates');
 
 logbook.addNotification = function (req, log) {
@@ -12,6 +13,19 @@ logbook.addNotification = function (req, log) {
     Notification.create(notificationData, (err, notification) => {
         if (err) {
             console.log(err);
+        } else {
+            User.find({
+                department: log.sender
+            }, (err, users) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    for (let user of users) {
+                        user.notifications.push(notification.text);
+                        user.save();
+                    }
+                }
+            });
         }
     });
 }
@@ -34,6 +48,19 @@ logbook.checkNotified = (department, notificationData) => {
                 Notification.create(notificationData, (err, notification) => {
                     if (err) {
                         console.log(err);
+                    } else {
+                        User.find({
+                            department: department
+                        }, (err, users) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                for (let user of users) {
+                                    user.notifications.push(notification.text);
+                                    user.save();
+                                }
+                            }
+                        });
                     }
                 });
             }
@@ -79,7 +106,8 @@ logbook.addActivityLog = function (req, log, action) {
 
 logbook.findAndAddActivityLog = function (req, action) {
     Log.findOne({
-        docId: req.body.docId
+        docId: req.body.docId,
+        sender: req.user.department
     }, (err, log) => {
         if (err) {
             console.log(err);
@@ -89,5 +117,30 @@ logbook.findAndAddActivityLog = function (req, action) {
     });
 }
 
+logbook.getIncomingLength = (function () {
+    // Something declared here will only be available to the function below.
+    // Code here is executed only once upon the creation of the inner function
+    let length = 0;
+    return async function (department) {
+        // Actual callback here
+        await Log.find({
+            destinations: department,
+            returned: false,
+            approved: false
+        }, (err, logs) => {
+            if (err) {
+                console.log(err);
+            } else {
+                logs = logs.filter((log) => {
+                    return !log.statuses[log.destinations.indexOf(department)].includes('Returned') &&
+                        !log.statuses[log.destinations.indexOf(department)].includes('Processed') &&
+                        !log.approved
+                });
+                length = logs.length;
+            }
+        });
+        return length;
+    };
+})(); // The last brackets execute the outer function
 
 module.exports = logbook;

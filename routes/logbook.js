@@ -37,25 +37,28 @@ router.get("/", middleware.isLoggedIn, middleware.checkNotifications, (req, res)
 	Log.find({
 		sender: req.user.department,
 		approved: false
-	}, (err, logs) => {
+	}, async (err, logs) => {
 		if (err) {
 			console.log(err);
 		} else {
+			// let numIncoming = await logbook.getIncomingLength(req.user.department);
 			res.render('logbook/index', {
-				logs: logs
+				logs: logs,
+				numIncoming: await logbook.getIncomingLength(req.user.department)
 			});
 		}
 	});
 });
 
 router.get('/new', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
-	Department.find({}, (err, departments) => {
+	Department.find({}, async (err, departments) => {
 		if (err) {
 			console.log(err);
 		} else {
 			sort(departments);
 			res.render('logbook/new', {
-				departments: departments
+				departments: departments,
+				numIncoming: await logbook.getIncomingLength(req.user.department)
 			});
 		}
 	})
@@ -100,7 +103,6 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 					log.docId = `${dateIdString}-${department.logs.length + 1}`;
 
 					let destinations = req.body.destinations
-					console.log(req.body);
 					for (let destination in destinations) {
 						log.destinations.push(destinations[destination]);
 						log.statuses.push('FROZEN');
@@ -128,7 +130,8 @@ router.put('/', middleware.isLoggedIn, (req, res) => {
 	let approvedDate = dates.createDateString();
 
 	Log.updateOne({
-		docId: req.body.docId
+		docId: req.body.docId,
+		sender: req.user.department
 	}, {
 		approved: true,
 		approvedDate: approvedDate
@@ -145,7 +148,8 @@ router.delete('/', middleware.isLoggedIn, (req, res) => {
 	logbook.findAndAddActivityLog(req, 'deleted');
 
 	Log.deleteOne({
-		docId: req.body.docId
+		docId: req.body.docId,
+		sender: req.user.department
 	}, (err) => {
 		if (err) {
 			res.send(err);
@@ -159,21 +163,27 @@ router.get('/incoming', middleware.isLoggedIn, middleware.checkNotifications, (r
 	Log.find({
 		destinations: req.user.department,
 		returned: false
-	}, (err, logs) => {
-		// logs = logs.filter((log) => {
-		// 	return !log.statuses[log.destinations.indexOf(req.user.department)].includes('Returned') &&
-		// 		!log.statuses[log.destinations.indexOf(req.user.department)].includes('Processed') &&
-		// 		!log.approved
-		// })
-		res.render('logbook/incoming', {
-			logs: logs
-		})
+	}, async (err, logs) => {
+		if (err) {
+			console.log(err);
+		} else {
+			logs = logs.filter((log) => {
+				return !log.statuses[log.destinations.indexOf(req.user.department)].includes('Returned') &&
+					!log.statuses[log.destinations.indexOf(req.user.department)].includes('Processed') &&
+					!log.approved
+			});
+			res.render('logbook/incoming', {
+				logs: logs,
+				numIncoming: await logbook.getIncomingLength(req.user.department)
+			});
+		}
 	})
 });
 
 router.put('/incoming', middleware.isLoggedIn, (req, res) => {
 	Log.findOne({
-		docId: req.body.docId
+		docId: req.body.docId,
+		sender: req.body.sender
 	}, (err, log) => {
 		if (err) {
 			console.log(err);
@@ -192,7 +202,8 @@ router.put('/incoming', middleware.isLoggedIn, (req, res) => {
 	}
 
 	Log.updateOne({
-		docId: req.body.docId
+		docId: req.body.docId,
+		sender: req.body.sender
 	}, {
 		statuses: statuses,
 		returned: req.body.returned
@@ -209,12 +220,13 @@ router.get('/approved', middleware.isLoggedIn, middleware.checkNotifications, (r
 	Log.find({
 		sender: req.user.department,
 		approved: true
-	}, (err, logs) => {
+	}, async (err, logs) => {
 		if (err) {
 			console.log(err);
 		} else {
 			res.render('logbook/approved', {
-				logs: logs
+				logs: logs,
+				numIncoming: await logbook.getIncomingLength(req.user.department)
 			})
 		}
 	});
@@ -223,13 +235,21 @@ router.get('/approved', middleware.isLoggedIn, middleware.checkNotifications, (r
 router.get('/notifications', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
 	Notification.find({
 		receiver: req.user.department
-	}, (err, notifications) => {
+	}, async (err, notifications) => {
 		if (err) {
 			console.log(err);
 		} else {
 			res.render('logbook/notifications', {
-				notifications: notifications
-			})
+				notifications: notifications,
+				numIncoming: await logbook.getIncomingLength(req.user.department)
+			});
+			User.findByIdAndUpdate(req.user._id, {
+				notifications: []
+			}, (err, user) => {
+				if (err) {
+					console.log(err);
+				}
+			});
 		}
 	})
 });
@@ -237,19 +257,22 @@ router.get('/notifications', middleware.isLoggedIn, middleware.checkNotification
 router.get('/profile', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
 	ActivityLog.find({
 		author: req.user.username
-	}, (err, activityLogs) => {
+	}, async (err, activityLogs) => {
 		if (err) {
 			console.log(err);
 		} else {
 			res.render('logbook/profile', {
-				activityLogs: activityLogs
+				activityLogs: activityLogs,
+				numIncoming: await logbook.getIncomingLength(req.user.department)
 			});
 		}
 	});
 });
 
-router.get('/profile/edit', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
-	res.render('logbook/edit-profile');
+router.get('/profile/edit', middleware.isLoggedIn, middleware.checkNotifications, async (req, res) => {
+	res.render('logbook/edit-profile', {
+		numIncoming: await logbook.getIncomingLength(req.user.department)
+	});
 })
 
 router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture'), (req, res) => {

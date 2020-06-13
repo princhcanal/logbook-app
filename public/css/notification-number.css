@@ -6,20 +6,30 @@
     font-size: 1rem;
     padding: 1rem 1.3rem;
     transform: scale(.45);
-    display: none;
+    /* display: none; */
 }
 
-.links .num-notification {
+.links .num-notification.incoming {
     top: -2rem;
     right: -1.6rem;
 }
 
-.hamburger-icon .num-notification {
-    top: -1.5rem;
-    right: -1.5rem;
-}
-
-.menu-links .num-notification {
+.menu-links .num-notification.incoming {
     top: 0;
     right: 33%;
+}
+
+.profile-buttons .num-notification.notif {
+    top: -1.9rem;
+    right: -1.7rem;
+}
+
+.menu-profile .num-notification.notif {
+    top: -1.8rem;
+    right: -60%;
+}
+
+.hamburger-icon .num-notification.total {
+    top: -1.5rem;
+    right: -1.5rem;
 }
