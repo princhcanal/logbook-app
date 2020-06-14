@@ -161,6 +161,12 @@
 	justify-content: space-between;
 }
 
+@media (max-width: 1188px) {
+	.input-group-inline.signup .input-group {
+		width: 100%;
+	}
+}
+
 .input-group-inline.docdue,
 .input-group-inline.selects {
 	justify-content: space-between;
@@ -310,7 +316,7 @@ textarea {
 }
 
 .input-group-select button.add-destination {
-	padding: .25rem .5rem !important;
+	padding: .35rem .5rem !important;
 	height: 50% !important;
 	width: auto !important;
 }

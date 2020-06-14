@@ -24,8 +24,8 @@
                     <i class="fas fa-bell notification-icon"></i></a>
                 <a href="/logbook/profile" class="link-selected">
                     <div class="image">
-                        <% if (currentUser.profilePicture && currentUser.profilePicture.length > 0) { %>
-                        <img src="<%= currentUser.profilePicture %>" alt="" class="profile-image">
+                        <% if (currentUser.imageSrc && currentUser.imageSrc.length > 0) { %>
+                        <img src="<%= currentUser.imageSrc %>" alt="" class="profile-image">
                         <% } else { %>
                         <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                             alt="" class="profile-image">
@@ -58,8 +58,8 @@
                 <i class="fas fa-bell notification-icon"></i></a>
             <a href="/logbook/profile" class="link-selected">
                 <div class="image">
-                    <% if (currentUser.profilePicture && currentUser.profilePicture.length > 0) { %>
-                    <img src="<%= currentUser.profilePicture %>" alt="" class="profile-image">
+                    <% if (currentUser.imageSrc && currentUser.imageSrc.length > 0) { %>
+                    <img src="<%= currentUser.imageSrc %>" alt="" class="profile-image">
                     <% } else { %>
                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                         alt="" class="profile-image">
@@ -92,8 +92,8 @@
         <h2>Edit Profile</h2>
         <div class="image">
             <div class="loader" style="display: none;"></div>
-            <% if (currentUser.profilePicture && currentUser.profilePicture.length > 0) { %>
-            <img src="<%= currentUser.profilePicture %>" alt="" class="profile-image" id="editProfile">
+            <% if (currentUser.imageSrc && currentUser.imageSrc.length > 0) { %>
+            <img src="<%= currentUser.imageSrc %>" alt="" class="profile-image" id="editProfile">
             <% } else { %>
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt=""
                 class="profile-image" id="editProfile">
@@ -104,7 +104,7 @@
                 Change profile picture
             </label>
             <input type="file" id="profileImage" name="profilePicture" accept="image/*"
-                value="<%= currentUser.profilePicture %> ">
+                value="<%= currentUser.imageSrc %> ">
         </div>
         <div class="input-group-inline profile">
             <div class="input-group">

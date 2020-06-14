@@ -9,30 +9,8 @@ let Notification = require('../models/notification');
 let logbook = require('../utilities/logbook');
 let sort = require('../utilities/sort');
 let dates = require('../utilities/dates');
-// let upload = require('../utilities/upload');
-let multer = require('multer');
-let storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, './uploads/')
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.originalname);
-	}
-});
-let fileFilter = (req, file, cb) => {
-	if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-		cb(null, true);
-	} else {
-		cb(null, false);
-	}
-}
-let upload = multer({
-	storage: storage,
-	limits: {
-		fileSize: 1024 * 1024 * 5
-	},
-	fileFilter: fileFilter
-});
+let fs = require('fs');
+let upload = require('../utilities/upload');
 
 router.get("/", middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
 	Log.find({
@@ -273,20 +251,28 @@ router.get('/profile/edit', middleware.isLoggedIn, middleware.checkNotifications
 	res.render('logbook/edit-profile', {
 		numIncoming: await logbook.getIncomingLength(req.user.department)
 	});
-})
+});
 
 router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture'), (req, res) => {
 	let newUserData = {
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
 		course: req.body.course,
-		profilePicture: req.file ? '/' + req.file.path : req.user.profilePicture
+		image: {
+			data: req.file ? fs.readFileSync(req.file.path) : req.user.image.data,
+			contentType: req.file ? req.file.mimetype : req.user.image.contentType
+		},
 	}
 	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
 		if (err) {
 			req.flash('error', 'Something went wrong')
 			res.redirect('/logbook/profile/edit');
 		} else {
+			// user.imageSrc = `data:image/jpeg;base64,${user.image.data.toObject().buffer.toString('base64')}`;
+			if (newUserData.image.data) {
+				user.imageSrc = `data:${newUserData.image.contentType};base64,${newUserData.image.data.toString('base64')}`;
+				user.save();
+			}
 			res.redirect('/logbook/profile');
 		}
 	})
@@ -295,7 +281,6 @@ router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture
 router.put('/profile/edit/picture', middleware.isLoggedIn, upload.single('profilePicture'), (req, res) => {
 	let newUserData = {
 		profilePicture: '/' + req.file.path,
-		// profilePicture: '/image/' + req.file.filename
 	}
 	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
 		if (err) {

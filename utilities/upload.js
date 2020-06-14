@@ -1,32 +1,25 @@
-// let path = require('path');
-// let crypto = require('crypto');
-// let GridFsStorage = require('multer-gridfs-storage');
-// let multer = require('multer');
+let multer = require('multer');
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, new Date().toISOString() + file.originalname);
+    }
+});
+let fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+let upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: fileFilter
+});
 
-// let mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/logbook_app";
-
-// // Create storage engine
-// const storage = new GridFsStorage({
-//     url: mongoURI,
-//     file: (req, file) => {
-//         return new Promise((resolve, reject) => {
-//             crypto.randomBytes(16, (err, buf) => {
-//                 if (err) {
-//                     return reject(err);
-//                 }
-//                 const filename = buf.toString('hex') + path.extname(file.originalname);
-//                 const fileInfo = {
-//                     filename: filename,
-//                     bucketName: 'uploads'
-//                 };
-//                 resolve(fileInfo);
-//             });
-//         });
-//     }
-// });
-
-// const upload = multer({
-//     storage
-// });
-
-// module.exports = upload;
+module.exports = upload;

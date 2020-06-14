@@ -6,7 +6,6 @@ let userSchema = new mongoose.Schema({
 	lastName: String,
 	username: String,
 	password: String,
-	email: String,
 	accountType: String,
 	department: String,
 	officeHours: String,
@@ -18,7 +17,12 @@ let userSchema = new mongoose.Schema({
 	notifications: [{
 		type: String
 	}],
-	profilePicture: String
+	profilePicture: String,
+	image: {
+		data: Buffer,
+		contentType: String
+	},
+	imageSrc: String
 });
 
 userSchema.plugin(passportLocalMongoose);

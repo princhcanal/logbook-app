@@ -12,7 +12,6 @@ fileInput.addEventListener('change', (e) => {
     editProfile.style.display = 'none';
     axios.put(url, formData).then(response => {
         let imageUrl = response.data.profilePicture;
-        console.log(imageUrl)
         profilePictures.forEach(profilePicture => {
             profilePicture.setAttribute('src', imageUrl);
         });
