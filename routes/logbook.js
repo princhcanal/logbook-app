@@ -259,8 +259,8 @@ router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture
 		lastName: req.body.lastName,
 		course: req.body.course,
 		image: {
-			data: req.file ? fs.readFileSync(req.file.path) : req.user.image.data,
-			contentType: req.file ? req.file.mimetype : req.user.image.contentType
+			data: req.file && req.user.profilePicture.length > 0 ? fs.readFileSync(req.file.path) : req.user.image.data,
+			contentType: req.file && req.user.profilePicture.length > 0 ? req.file.mimetype : req.user.image.contentType
 		},
 	}
 	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
