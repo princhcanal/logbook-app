@@ -294,7 +294,12 @@ router.put('/profile/edit/picture', middleware.isLoggedIn, upload.single('profil
 
 router.put('/profile/delete/picture', middleware.isLoggedIn, (req, res) => {
 	let newUserData = {
-		imageSrc: req.body.imageSrc
+		imageSrc: req.body.imageSrc,
+		profilePicture: '',
+		image: {
+			data: null,
+			contentType: null
+		}
 	}
 	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
 		if (err) {
