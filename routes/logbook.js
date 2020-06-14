@@ -292,4 +292,18 @@ router.put('/profile/edit/picture', middleware.isLoggedIn, upload.single('profil
 	});
 });
 
+router.put('/profile/delete/picture', middleware.isLoggedIn, (req, res) => {
+	let newUserData = {
+		imageSrc: req.body.imageSrc
+	}
+	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
+		if (err) {
+			req.flash('error', 'Something went wrong');
+			res.redirect('/logbook/profile/edit');
+		} else {
+			res.send(newUserData);
+		}
+	})
+})
+
 module.exports = router;
