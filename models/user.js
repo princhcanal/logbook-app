@@ -1,7 +1,7 @@
-let mongoose = require("mongoose");
-let passportLocalMongoose = require("passport-local-mongoose");
+const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose"); // passportLocalMongoose allows us to create users easily
 
-let userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 	firstName: String,
 	lastName: String,
 	username: String,
@@ -19,12 +19,13 @@ let userSchema = new mongoose.Schema({
 	}],
 	profilePicture: String,
 	image: {
-		data: Buffer,
+		data: Buffer, // data type for binary
 		contentType: String
 	},
 	imageSrc: String
 });
 
+// we need to "plugin" passportLocalMongoose in order to use its functions for our users
 userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", userSchema);

@@ -7,37 +7,37 @@ let editProfileForm = document.querySelector('#editProfileForm');
 let loader = document.querySelector('.loader');
 let url = '/logbook/profile/edit/picture';
 
-fileInput.addEventListener('change', (e) => {
+fileInput.addEventListener('change', function (e) {
     let formData = new FormData(editProfileForm);
     loader.style.display = 'block';
     editProfile.style.display = 'none';
-    axios.put(url, formData).then(response => {
+    axios.put(url, formData).then(function (response) {
         let imageUrl = response.data.profilePicture;
-        profilePictures.forEach(profilePicture => {
+        profilePictures.forEach(function (profilePicture) {
             profilePicture.setAttribute('src', imageUrl);
         });
         loader.style.display = 'none';
         editProfile.style.display = 'inline-block';
-    }).catch(err => {
+    }).catch(function (err) {
         console.log(err);
         loader.style.display = 'none';
         editProfile.style.display = 'inline-block';
     });
 });
 
-deleteProfile.addEventListener('click', () => {
+deleteProfile.addEventListener('click', function () {
     loader.style.display = 'block';
     editProfile.style.display = 'none';
     axios.put('/logbook/profile/delete/picture', {
         imageSrc: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-    }).then(response => {
+    }).then(function (response) {
         let imageUrl = response.data.imageSrc;
-        profilePictures.forEach(profilePicture => {
+        profilePictures.forEach(function (profilePicture) {
             profilePicture.setAttribute('src', imageUrl);
         });
         loader.style.display = 'none';
         editProfile.style.display = 'inline-block';
-    }).catch(err => {
+    }).catch(function (err) {
         console.log(err);
         loader.style.display = 'none';
         editProfile.style.display = 'inline-block';

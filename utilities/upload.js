@@ -1,5 +1,5 @@
-let multer = require('multer');
-let storage = multer.diskStorage({
+const multer = require('multer');
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/')
     },
@@ -7,14 +7,14 @@ let storage = multer.diskStorage({
         cb(null, req.user.username + file.originalname);
     }
 });
-let fileFilter = (req, file, cb) => {
+const fileFilter = function (req, file, cb) {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
     } else {
         cb(null, false);
     }
 }
-let upload = multer({
+const upload = multer({
     storage: storage,
     limits: {
         fileSize: 1024 * 1024 * 5

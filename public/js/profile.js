@@ -6,7 +6,7 @@ for (let i = logs.length - 1; i >= logs.length - 10; i--) {
     logs[i].style.display = 'block';
 }
 
-seeMore.addEventListener('click', () => {
+seeMore.addEventListener('click', function () {
     if (seeMore.innerHTML === 'See More') {
         for (let i = 0; i < logs.length - 10; i++) {
             logs[i].style.display = 'block';

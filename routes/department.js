@@ -1,16 +1,16 @@
-let express = require("express");
-let router = express.Router();
-let Deparment = require('../models/department')
+const express = require("express");
+const router = express.Router();
+const Deparment = require('../models/department')
 
-router.get('/', (req, res) => {
+router.get('/', function (req, res) {
     res.render('department/index');
 });
 
-router.post('/new', (req, res) => {
+router.post('/new', function (req, res) {
     Deparment.create({
         name: req.body.name,
         abbreviation: req.body.abbrev
-    }, (err, department) => {
+    }, function (err, department) {
         if (err) {
             console.log(err);
         } else {

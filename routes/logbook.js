@@ -1,22 +1,22 @@
-let express = require("express");
-let router = express.Router();
-let middleware = require('../middleware');
-let User = require('../models/user');
-let Log = require('../models/logbookLog');
-let Department = require('../models/department');
-let ActivityLog = require('../models/activityLog');
-let Notification = require('../models/notification');
-let logbook = require('../utilities/logbook');
-let sort = require('../utilities/sort');
-let dates = require('../utilities/dates');
-let fs = require('fs');
-let upload = require('../utilities/upload');
+const express = require("express");
+const router = express.Router();
+const middleware = require('../middleware');
+const User = require('../models/user');
+const Log = require('../models/logbookLog');
+const Department = require('../models/department');
+const ActivityLog = require('../models/activityLog');
+const Notification = require('../models/notification');
+const logbook = require('../utilities/logbook');
+const sort = require('../utilities/sort');
+const dates = require('../utilities/dates');
+const fs = require('fs');
+const upload = require('../utilities/upload');
 
-router.get("/", middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
+router.get("/", middleware.isLoggedIn, middleware.checkNotifications, function (req, res) {
 	Log.find({
 		sender: req.user.department,
 		approved: false
-	}, async (err, logs) => {
+	}, async function (err, logs) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -28,8 +28,8 @@ router.get("/", middleware.isLoggedIn, middleware.checkNotifications, (req, res)
 	});
 });
 
-router.get('/new', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
-	Department.find({}, async (err, departments) => {
+router.get('/new', middleware.isLoggedIn, middleware.checkNotifications, function (req, res) {
+	Department.find({}, async function (err, departments) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -43,15 +43,15 @@ router.get('/new', middleware.isLoggedIn, middleware.checkNotifications, (req, r
 });
 
 // create a log
-router.post('/new', middleware.isLoggedIn, (req, res) => {
-	let dateIdString = dates.createDateString(...[, ], 'id');
-	let createdDate = dates.createDateString();
-	let pendingDate = dates.createDateString(...[, , ], 3);
+router.post('/new', middleware.isLoggedIn, function (req, res) {
+	let dateIdString = dates.createDateString(...[, ], 'id'); // 06142020
+	let createdDate = dates.createDateString(); // June 14, 2020
+	let pendingDate = dates.createDateString(...[, , ], 3); // June 17, 2020
 	let dueDate = '-';
 	if (req.body.dueDate && req.body.dueDate.length > 0) {
 		dueDate = dates.createDateString(new Date(req.body.dueDate));
 	}
-	let almostDueDate = dates.createDateString(new Date(req.body.dueDate), ...[, ], -1);
+	let almostDueDate = dates.createDateString(new Date(req.body.dueDate), ...[, ], -1); // June 14, 2020
 
 	let logData = {
 		re: req.body.re,
@@ -68,12 +68,12 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 
 	Department.findOne({
 		abbreviation: req.user.department
-	}, (err, department) => {
+	}, function (err, department) {
 		if (err) {
 			console.log(err);
 			res.redirect('/logbook/new');
 		} else {
-			Log.create(logData, (err, log) => {
+			Log.create(logData, function (err, log) {
 				if (err) {
 					req.flash('error', 'Something went wrong');
 					console.log(err);
@@ -102,7 +102,7 @@ router.post('/new', middleware.isLoggedIn, (req, res) => {
 });
 
 // approve a log
-router.put('/', middleware.isLoggedIn, (req, res) => {
+router.put('/', middleware.isLoggedIn, function (req, res) {
 	logbook.findAndAddActivityLog(req, 'approved');
 
 	let approvedDate = dates.createDateString();
@@ -113,7 +113,7 @@ router.put('/', middleware.isLoggedIn, (req, res) => {
 	}, {
 		approved: true,
 		approvedDate: approvedDate
-	}, (err, log) => {
+	}, function (err, log) {
 		if (err) {
 			res.send(err)
 		} else {
@@ -122,13 +122,13 @@ router.put('/', middleware.isLoggedIn, (req, res) => {
 	})
 })
 
-router.delete('/', middleware.isLoggedIn, (req, res) => {
+router.delete('/', middleware.isLoggedIn, function (req, res) {
 	logbook.findAndAddActivityLog(req, 'deleted');
 
 	Log.deleteOne({
 		docId: req.body.docId,
 		sender: req.user.department
-	}, (err) => {
+	}, function (err) {
 		if (err) {
 			res.send(err);
 		} else {
@@ -137,15 +137,15 @@ router.delete('/', middleware.isLoggedIn, (req, res) => {
 	})
 });
 
-router.get('/incoming', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
+router.get('/incoming', middleware.isLoggedIn, middleware.checkNotifications, function (req, res) {
 	Log.find({
 		destinations: req.user.department,
 		returned: false
-	}, async (err, logs) => {
+	}, async function (err, logs) {
 		if (err) {
 			console.log(err);
 		} else {
-			logs = logs.filter((log) => {
+			logs = logs.filter(function (log) {
 				return !log.statuses[log.destinations.indexOf(req.user.department)].includes('Returned') &&
 					!log.statuses[log.destinations.indexOf(req.user.department)].includes('Processed') &&
 					!log.approved
@@ -158,11 +158,11 @@ router.get('/incoming', middleware.isLoggedIn, middleware.checkNotifications, (r
 	})
 });
 
-router.put('/incoming', middleware.isLoggedIn, (req, res) => {
+router.put('/incoming', middleware.isLoggedIn, function (req, res) {
 	Log.findOne({
 		docId: req.body.docId,
 		sender: req.body.sender
-	}, (err, log) => {
+	}, function (err, log) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -185,7 +185,7 @@ router.put('/incoming', middleware.isLoggedIn, (req, res) => {
 	}, {
 		statuses: statuses,
 		returned: req.body.returned
-	}, (err, log) => {
+	}, function (err, log) {
 		if (err) {
 			res.send(err);
 		} else {
@@ -194,11 +194,11 @@ router.put('/incoming', middleware.isLoggedIn, (req, res) => {
 	})
 })
 
-router.get('/approved', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
+router.get('/approved', middleware.isLoggedIn, middleware.checkNotifications, function (req, res) {
 	Log.find({
 		sender: req.user.department,
 		approved: true
-	}, async (err, logs) => {
+	}, async function (err, logs) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -210,10 +210,10 @@ router.get('/approved', middleware.isLoggedIn, middleware.checkNotifications, (r
 	});
 });
 
-router.get('/notifications', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
+router.get('/notifications', middleware.isLoggedIn, middleware.checkNotifications, function (req, res) {
 	Notification.find({
 		receiver: req.user.department
-	}, async (err, notifications) => {
+	}, async function (err, notifications) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -223,7 +223,7 @@ router.get('/notifications', middleware.isLoggedIn, middleware.checkNotification
 			});
 			User.findByIdAndUpdate(req.user._id, {
 				notifications: []
-			}, (err, user) => {
+			}, function (err, user) {
 				if (err) {
 					console.log(err);
 				}
@@ -232,10 +232,10 @@ router.get('/notifications', middleware.isLoggedIn, middleware.checkNotification
 	})
 });
 
-router.get('/profile', middleware.isLoggedIn, middleware.checkNotifications, (req, res) => {
+router.get('/profile', middleware.isLoggedIn, middleware.checkNotifications, function (req, res) {
 	ActivityLog.find({
 		author: req.user.username
-	}, async (err, activityLogs) => {
+	}, async function (err, activityLogs) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -247,13 +247,13 @@ router.get('/profile', middleware.isLoggedIn, middleware.checkNotifications, (re
 	});
 });
 
-router.get('/profile/edit', middleware.isLoggedIn, middleware.checkNotifications, async (req, res) => {
+router.get('/profile/edit', middleware.isLoggedIn, middleware.checkNotifications, async function (req, res) {
 	res.render('logbook/edit-profile', {
 		numIncoming: await logbook.getIncomingLength(req.user.department)
 	});
 });
 
-router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture'), (req, res) => {
+router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture'), function (req, res) {
 	let newUserData = {
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
@@ -263,12 +263,11 @@ router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture
 			contentType: req.file && req.user.profilePicture.length > 0 ? req.file.mimetype : req.user.image.contentType
 		},
 	}
-	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
+	User.findByIdAndUpdate(req.user._id, newUserData, function (err, user) {
 		if (err) {
 			req.flash('error', 'Something went wrong')
 			res.redirect('/logbook/profile/edit');
 		} else {
-			// user.imageSrc = `data:image/jpeg;base64,${user.image.data.toObject().buffer.toString('base64')}`;
 			if (newUserData.image.data) {
 				user.imageSrc = `data:${newUserData.image.contentType};base64,${newUserData.image.data.toString('base64')}`;
 				user.save();
@@ -278,11 +277,11 @@ router.put('/profile/edit', middleware.isLoggedIn, upload.single('profilePicture
 	})
 });
 
-router.put('/profile/edit/picture', middleware.isLoggedIn, upload.single('profilePicture'), (req, res) => {
+router.put('/profile/edit/picture', middleware.isLoggedIn, upload.single('profilePicture'), function (req, res) {
 	let newUserData = {
 		profilePicture: '/' + req.file.path,
 	}
-	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
+	User.findByIdAndUpdate(req.user._id, newUserData, function (err, user) {
 		if (err) {
 			req.flash('error', 'Something went wrong')
 			res.redirect('/logbook/profile/edit');
@@ -292,7 +291,7 @@ router.put('/profile/edit/picture', middleware.isLoggedIn, upload.single('profil
 	});
 });
 
-router.put('/profile/delete/picture', middleware.isLoggedIn, (req, res) => {
+router.put('/profile/delete/picture', middleware.isLoggedIn, function (req, res) {
 	let newUserData = {
 		imageSrc: req.body.imageSrc,
 		profilePicture: '',
@@ -301,7 +300,7 @@ router.put('/profile/delete/picture', middleware.isLoggedIn, (req, res) => {
 			contentType: null
 		}
 	}
-	User.findByIdAndUpdate(req.user._id, newUserData, (err, user) => {
+	User.findByIdAndUpdate(req.user._id, newUserData, function (err, user) {
 		if (err) {
 			req.flash('error', 'Something went wrong');
 			res.redirect('/logbook/profile/edit');

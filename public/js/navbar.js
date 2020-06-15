@@ -1,8 +1,8 @@
 let links = document.querySelectorAll(".nav-links a");
 
-links.forEach((link) => {
-	link.addEventListener("click", () => {
-		links.forEach((link) => {
+links.forEach(function (link) {
+	link.addEventListener("click", function () {
+		links.forEach(function (link) {
 			link.classList.remove("link-selected");
 		});
 		link.classList.add("link-selected");
@@ -16,17 +16,17 @@ let hamburgerMenu = document.querySelector(".hamburger-menu");
 let hamburgerMenuChildren = document.querySelectorAll(".hamburger-menu *");
 let backdrop = document.querySelector(".backdrop");
 
-hamburgerIcon.addEventListener("click", () => {
+hamburgerIcon.addEventListener("click", function () {
 	hamburgerMenu.classList.add("show-menu");
 	backdrop.classList.add("show-backdrop");
 });
 
-menuIcon.addEventListener("click", () => {
+menuIcon.addEventListener("click", function () {
 	hamburgerMenu.classList.remove("show-menu");
 	backdrop.classList.remove("show-backdrop");
 });
 
-document.addEventListener("click", (e) => {
+document.addEventListener("click", function (e) {
 	for (let child of hamburgerMenuChildren) {
 		if (e.target === child) return;
 	}

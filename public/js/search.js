@@ -1,11 +1,11 @@
 let searchInput = document.querySelector('.search-input');
 
-searchInput.addEventListener('keyup', () => {
+searchInput.addEventListener('keyup', function () {
     let filter = searchInput.value.toUpperCase();
     let columns = document.querySelectorAll('.inner-column');
     let rows = document.querySelectorAll('.inner-row');
     let rowsToDisplay = [];
-    columns.forEach(column => {
+    columns.forEach(function (column) {
         let row = column.parentElement;
         let textValue = column.textContent || column.innerText;
         let index = textValue.toUpperCase().indexOf(filter);

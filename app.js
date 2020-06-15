@@ -1,4 +1,4 @@
-let express = require("express"),
+const express = require("express"),
 	app = express(),
 	bodyParser = require("body-parser"),
 	methodOverride = require("method-override"),
@@ -9,7 +9,7 @@ let express = require("express"),
 	flash = require('connect-flash'),
 	User = require('./models/user');
 
-let indexRoutes = require("./routes/index"),
+const indexRoutes = require("./routes/index"),
 	logbookRoutes = require("./routes/logbook"),
 	departmentRoutes = require('./routes/department');
 
@@ -23,7 +23,7 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname + "/public")));
 app.use(flash());
 app.use(methodOverride("_method"));
-app.use((req, res, next) => {
+app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header(
 		"Access-Control-Allow-Headers",
@@ -57,7 +57,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next) => {
+app.use(function (req, res, next) {
 	res.locals.currentUser = req.user;
 	res.locals.error = req.flash("error");
 	res.locals.success = req.flash("success");
@@ -77,6 +77,6 @@ app.use("/logbook", logbookRoutes);
 app.use("/department", departmentRoutes);
 
 let port = app.get("port");
-let server = app.listen(port, () => {
+let server = app.listen(port, function () {
 	console.log("Logbook running on port", port);
 });

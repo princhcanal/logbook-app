@@ -1,6 +1,6 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-let logbookLogSchema = new mongoose.Schema({
+const logbookLogSchema = new mongoose.Schema({
     docId: String,
     re: String,
     docType: String,

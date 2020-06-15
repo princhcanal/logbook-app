@@ -1,6 +1,6 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-let notificationSchema = mongoose.Schema({
+const notificationSchema = mongoose.Schema({
     text: String,
     receiver: String
 });
