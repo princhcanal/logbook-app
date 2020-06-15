@@ -29,9 +29,9 @@ body {
 	padding-bottom: 10rem;
 }
 
-.wrapper::-webkit-scrollbar {
+/* .wrapper::-webkit-scrollbar {
 	display: none;
-}
+} */
 
 a {
 	text-decoration: none;
