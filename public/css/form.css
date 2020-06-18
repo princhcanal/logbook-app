@@ -331,7 +331,7 @@ textarea {
 	flex-direction: row;
 	-webkit-box-pack: justify;
 	-ms-flex-pack: justify;
-	justify-content: space-between;
+	justify-content: flex-end;
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
