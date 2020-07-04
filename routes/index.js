@@ -1,5 +1,5 @@
 // assigning a variable to a "require('filename.ext')" is how we import files in NodeJS
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/user');
@@ -32,7 +32,7 @@ const sort = require('../utilities/sort');
 // what's important in the req object is the data that the user gives to the server and the user data
 // res is the response variable that allows us to respond to the user making the request
 // so basically, the req comes from the user and the res comes from the server
-router.get("/", function (req, res) {
+router.get('/', function (req, res) {
 	// if logged in
 	if (req.user) {
 		// if(req.user) is checking if there is a user logged in
@@ -60,7 +60,7 @@ router.get("/", function (req, res) {
 				// the next argument is a JavaScript object that contains all the variables that we want to pass into our HTML to render it dynamically
 				// in our JavaScript we define a variable called departments (which is the key) and its value is the departments that we sorted
 				res.render('login', {
-					departments: departments
+					departments: departments,
 				});
 			}
 		});
@@ -74,33 +74,42 @@ router.get("/", function (req, res) {
 // this is a post route, so it is meant to create something in our database
 // in this case, to create a user
 router.post('/signup', function (req, res) {
-	// all the values that the user sends to the server can be found in req.body
-	// we define userData to be a JavaScript object that contains the data that we want when we create our new user
-	let userData = {
-		firstName: req.body.firstname,
-		lastName: req.body.lastname,
-		email: req.body.email,
-		username: req.body.username,
-		accountType: req.body.accType,
-		department: req.body.department
-	}
-	// to create our user, we need to do two steps
-	// first is to create a new instance of our User Schema passing in our userData variable
-	let newUser = new User(userData);
-	// notice how there is no password in the userData
-	// that is because we want the password to be encrypted so we use the passport-local-mongoose method "register"
-	// in register, we pass in our newUser, the password given by the user, and our callback function
-	User.register(newUser, req.body.password, function (err, user) {
-		if (err) {
-			// if the user failed to register, we will "flash" an error message and redirect them back to the / route which is our login page
-			req.flash('error', err.message);
-			return res.redirect('/');
+	User.findOne({ username: req.body.username }, (err, user) => {
+		if (user) {
+			req.flash('error', 'Username taken');
+			res.redirect('/');
 		} else {
-			// if the user was created, we authenticate the user
-			passport.authenticate('local')(req, res, function () {
-				// when the user is authenticated, we flash a welcome message that is seen once the user is redirected to /logbook
-				req.flash('success', `Welcome to Logbook ${user.username}!`);
-				res.redirect('/logbook');
+			// all the values that the user sends to the server can be found in req.body
+			// we define userData to be a JavaScript object that contains the data that we want when we create our new user
+			let userData = {
+				firstName: req.body.firstname,
+				lastName: req.body.lastname,
+				username: req.body.username,
+				accountType: req.body.accType,
+				department: req.body.department,
+			};
+			// to create our user, we need to do two steps
+			// first is to create a new instance of our User Schema passing in our userData variable
+			let newUser = new User(userData);
+			// notice how there is no password in the userData
+			// that is because we want the password to be encrypted so we use the passport-local-mongoose method "register"
+			// in register, we pass in our newUser, the password given by the user, and our callback function
+			User.register(newUser, req.body.password, function (err, user) {
+				if (err) {
+					// if the user failed to register, we will "flash" an error message and redirect them back to the / route which is our login page
+					req.flash('error', err.message);
+					return res.redirect('/');
+				} else {
+					// if the user was created, we authenticate the user
+					passport.authenticate('local')(req, res, function () {
+						// when the user is authenticated, we flash a welcome message that is seen once the user is redirected to /logbook
+						req.flash(
+							'success',
+							`Welcome to Logbook ${user.username}!`
+						);
+						res.redirect('/logbook');
+					});
+				}
 			});
 		}
 	});
@@ -111,11 +120,15 @@ router.post('/signup', function (req, res) {
 // we first authenticate the user using passport
 // if user is authenticated, redirect the to /logbook
 // if not, redirect them back to the login page with a flash message
-router.post('/login', passport.authenticate('local', {
-	successRedirect: '/logbook',
-	failureRedirect: '/',
-	failureFlash: true
-}), function (req, res) {});
+router.post(
+	'/login',
+	passport.authenticate('local', {
+		successRedirect: '/logbook',
+		failureRedirect: '/',
+		failureFlash: true,
+	}),
+	function (req, res) {}
+);
 
 // logout
 // this route allows a user to logout simply by using req.logout()
