@@ -4,4 +4,4 @@ This app was created in collaboration with [John Earl P. Bascos](https://www.lin
 
 It is meant to be used by working students at [Cebu Institute of Technology - University](https://cit.edu/) for storing their logs online. Users can create and delete logs from their department and read and update logs of other departments. Users can also see other users' activity by visiting their profile.
 
-[Live Demo](https://citu-logbookbook.herokuapp.com)
+[Live Demo](https://citu-logbook.herokuapp.com)
